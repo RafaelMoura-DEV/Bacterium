@@ -3,13 +3,9 @@ using Photon.Realtime;
 using UnityEngine;
 public class PhotonConnection : MonoBehaviourPunCallbacks
 {
-    public string nickName = "user";
-    public string roomName = "PUCC";
+    public string nickName;
+    public string roomName;
 
-    private void Start()
-    {
-        //Connect();
-    }
     //-------------------------------------------------------------------------
     public void ChangeNickName(string newNick)
     {
@@ -66,6 +62,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     {
         Debug.Log("Entered room: " + PhotonNetwork.CurrentRoom.Name);
         PhotonNetwork.Instantiate("Player", Random.insideUnitSphere * 2, Quaternion.identity);
+        //GameManager.Instance.LoadScene("Game");
     }
 
     //-------------------------------------------------------------------------
@@ -78,5 +75,6 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log("Player left room: " + otherPlayer.NickName);
+        GameManager.Instance.LoadScene("Menu");
     }
 }

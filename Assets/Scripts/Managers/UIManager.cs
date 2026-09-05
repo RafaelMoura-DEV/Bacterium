@@ -18,8 +18,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI nicknameFeedbackText;
     [SerializeField] TextMeshProUGUI newRoomFeedbackText;
+    [SerializeField] TextMeshProUGUI joinButtonText;
 
-    private string nickname = "";
+    [SerializeField] GameObject quitButton;
 
     // ------------------------------------------------------ //
 
@@ -38,6 +39,8 @@ public class UIManager : MonoBehaviour
 
     public void Login()
     {
+        string nickname = nicknameInputField.text;
+
         if (nickname.ToUpper() == "O RAFA É LINDO" || nickname.ToUpper() == "O RAFA E LINDO")
         {
             nicknameFeedbackText.text = "São seus olhos, chuchuzinho";
@@ -51,11 +54,12 @@ public class UIManager : MonoBehaviour
             roomScreen.SetActive(true);
 
             photonConnection.ChangeNickName(nickname);
+            photonConnection.Connect();
         }
 
         else
         {
-            nicknameFeedbackText.text = "Insert a valid nickname!";
+            nicknameFeedbackText.text = "Insira um nome válido!";
         }
     }
 
@@ -75,6 +79,47 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Game Quitted...");
         Application.Quit();
+    }
+
+    public void ToggleRoomList()
+    {
+        if (!roomlistPanel.activeSelf)
+        {
+            roomlistPanel.SetActive(true);
+            joinButtonText.text = "ENTRAR          -";
+            quitButton.transform.localPosition = new Vector3(quitButton.transform.localPosition.x, -470, quitButton.transform.localPosition.z);
+        }
+
+        else
+        {
+            roomlistPanel.SetActive(false);
+            joinButtonText.text = "ENTRAR          +";
+            quitButton.transform.localPosition = new Vector3(quitButton.transform.localPosition.x, -48.0f, quitButton.transform.localPosition.z);
+        }
+    }
+
+    public void OpenNewRoomPanel()
+    {
+        newRoomPanel.SetActive(true);
+    }
+
+    public void CreateNewRoom()
+    {
+        if (newRoomInputField.text != string.Empty)
+        {
+            photonConnection.JoinRoom(newRoomInputField.text);
+        }
+
+        else
+        {
+            newRoomFeedbackText.text = "Insira um nome válido!";
+        }
+    }
+
+    public void ReturnToMenu()
+    {
+        menuScreen.SetActive(true);
+        roomScreen.SetActive(false);
     }
 
     public void DeactivatePanels()
