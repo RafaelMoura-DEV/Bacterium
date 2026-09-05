@@ -3,6 +3,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    PhotonConnection photonConnection;
+
     [SerializeField] GameObject menuScreen;
     [SerializeField] GameObject roomScreen;
 
@@ -21,6 +23,13 @@ public class UIManager : MonoBehaviour
 
     // ------------------------------------------------------ //
 
+    private void Start()
+    {
+        photonConnection = FindAnyObjectByType<PhotonConnection>();
+    }
+
+    // ------------------------------------------------------ //
+
     public void Play()
     {
         DeactivatePanels();
@@ -29,8 +38,6 @@ public class UIManager : MonoBehaviour
 
     public void Login()
     {
-        string nickname = nicknameInputField.text;
-
         if (nickname.ToUpper() == "O RAFA É LINDO" || nickname.ToUpper() == "O RAFA E LINDO")
         {
             nicknameFeedbackText.text = "São seus olhos, chuchuzinho";
@@ -43,7 +50,7 @@ public class UIManager : MonoBehaviour
             menuScreen.SetActive(false);
             roomScreen.SetActive(true);
 
-            Debug.Log(nickname.ToUpper());
+            photonConnection.ChangeNickName(nickname);
         }
 
         else
