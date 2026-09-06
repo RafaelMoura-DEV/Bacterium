@@ -26,7 +26,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     //-------------------------------------------------------------------------
     public void ChangeNickName(string newNick)
     {
-        nickName = newNick;
+        nickName = newNick.ToUpper();
     }
 
     //-------------------------------------------------------------------------
@@ -71,22 +71,34 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
             MaxPlayers = 20
         };
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
-        GameManager.Instance.LoadScene("Game");
+    }
+
+    public bool IsMasterClient()
+    {
+        return PhotonNetwork.IsMasterClient;
+    }
+
+    public string GetMasterClientName()
+    {
+        return PhotonNetwork.MasterClient.NickName;
     }
 
     //-------------------------------------------------------------------------
     //aqui voce esta dentro da sala e chegou a hora de se SPAWNAR na cena
     public override void OnJoinedRoom()
     {
-        Debug.Log("Entered room: " + PhotonNetwork.CurrentRoom.Name);
-        GameObject self = PhotonNetwork.Instantiate("Player", Random.insideUnitSphere * 2, Quaternion.identity);
-        self.name = nickName;
+        //GameObject self = PhotonNetwork.Instantiate("Player", Random.insideUnitSphere * 2, Quaternion.identity);
+        //self.name = nickName;
+
+        UIManager uIManager = FindAnyObjectByType<UIManager>();
+        if (uIManager != null) uIManager.OpenWaitingPanel(PhotonNetwork.IsMasterClient);
     }
 
     //-------------------------------------------------------------------------
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log("Player entered room: " + newPlayer.NickName);
+        UIManager uIManager = FindAnyObjectByType<UIManager>();
+        if (uIManager != null) uIManager.UpdateWaitingPanel(newPlayer.NickName);
     }
 
     //-------------------------------------------------------------------------

@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] GameObject roomlistPanel;
     [SerializeField] GameObject newRoomPanel;
+    [SerializeField] GameObject waitingPanel;
 
     [SerializeField] TMP_InputField nicknameInputField;
     [SerializeField] TMP_InputField newRoomInputField;
@@ -114,6 +115,30 @@ public class UIManager : MonoBehaviour
         {
             newRoomFeedbackText.text = "Insira um nome válido!";
         }
+    }
+
+    public void OpenWaitingPanel(bool isMasterClient)
+    {
+        newRoomPanel.SetActive(false);
+        waitingPanel.SetActive(true);
+
+        if (isMasterClient)
+        {
+            waitingPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = photonConnection.nickName;
+        }
+
+        else
+        {
+            string masterClientName = photonConnection.GetMasterClientName();
+            waitingPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = masterClientName;
+            waitingPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = photonConnection.nickName;
+        }
+    }
+
+    public void UpdateWaitingPanel(string secondPlayerName)
+    {
+        waitingPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = secondPlayerName;
+        waitingPanel.transform.GetChild(2).gameObject.SetActive(true);
     }
 
     public void ReturnToMenu()
