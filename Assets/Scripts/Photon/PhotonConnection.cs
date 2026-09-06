@@ -3,8 +3,25 @@ using Photon.Realtime;
 using UnityEngine;
 public class PhotonConnection : MonoBehaviourPunCallbacks
 {
+    public static PhotonConnection Instance { get; private set; }
+
     public string nickName;
     public string roomName;
+
+    //-------------------------------------------------------------------------
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     //-------------------------------------------------------------------------
     public void ChangeNickName(string newNick)
@@ -54,6 +71,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
             MaxPlayers = 20
         };
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
+        GameManager.Instance.LoadScene("Game");
     }
 
     //-------------------------------------------------------------------------
@@ -61,8 +79,8 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("Entered room: " + PhotonNetwork.CurrentRoom.Name);
-        PhotonNetwork.Instantiate("Player", Random.insideUnitSphere * 2, Quaternion.identity);
-        //GameManager.Instance.LoadScene("Game");
+        GameObject self = PhotonNetwork.Instantiate("Player", Random.insideUnitSphere * 2, Quaternion.identity);
+        self.name = nickName;
     }
 
     //-------------------------------------------------------------------------
