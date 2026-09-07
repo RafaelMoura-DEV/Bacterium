@@ -1,5 +1,8 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using Photon.Realtime;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -22,6 +25,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI joinButtonText;
 
     [SerializeField] GameObject quitButton;
+
+    [SerializeField] GameObject roomCardPrefab;
+    private List<GameObject> roomCardsList = new List<GameObject>();
+    private float yCurrentRoomCardPos = 145.0f; // Depois substituir pelo componente de resize automatico
 
     // ------------------------------------------------------ //
 
@@ -108,7 +115,7 @@ public class UIManager : MonoBehaviour
     {
         if (newRoomInputField.text != string.Empty)
         {
-            photonConnection.JoinRoom(newRoomInputField.text);
+            photonConnection.JoinRoom(newRoomInputField.text.ToUpper());
         }
 
         else
@@ -141,6 +148,16 @@ public class UIManager : MonoBehaviour
         waitingPanel.transform.GetChild(2).gameObject.SetActive(true);
     }
 
+    public void StartGame()
+    {
+        photonConnection.EnterGameScene();
+    }
+
+    public void LeaveRoom()
+    {
+
+    }
+
     public void ReturnToMenu()
     {
         menuScreen.SetActive(true);
@@ -150,5 +167,35 @@ public class UIManager : MonoBehaviour
     public void DeactivatePanels()
     {
         for (int i = 0;  i < panels.Length; i++) panels[i].SetActive(false);
+    }
+
+    public void UpdateRoomList(List<RoomInfo> roomList)
+    {
+        for (int i = 0; i < roomCardsList.Count; i++)
+        {
+            GameObject roomCardRef = roomCardsList[i];
+            roomCardsList.Remove(roomCardsList[i]);
+            Destroy(roomCardRef);
+        }
+
+        yCurrentRoomCardPos = 145.0f;
+
+        for (int i = 0; i < roomList.Count; i++)
+        {
+            GameObject roomCard = Instantiate(roomCardPrefab, roomlistPanel.transform);
+            roomCard.transform.localPosition = new Vector3(0.0f, yCurrentRoomCardPos, 0.0f);
+
+            roomCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = roomList[i].Name.ToUpper();
+
+            Button roomButton = roomCard.GetComponent<Button>();
+            roomButton.onClick.AddListener(() => JoinRoom(roomButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text));
+
+            yCurrentRoomCardPos -= 95.0f;
+        }
+    }
+
+    void JoinRoom(string roomName)
+    {
+        photonConnection.JoinRoom(roomName);
     }
 }

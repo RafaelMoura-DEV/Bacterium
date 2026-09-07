@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
@@ -64,13 +65,21 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     //-------------------------------------------------------------------------
     public void JoinRoom(string _roomName)
     {
-        roomName = _roomName;
+        roomName = _roomName.ToUpper();
         RoomOptions roomOptions = new()
         {
             IsVisible = true,
             MaxPlayers = 20
         };
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
+    }
+
+    public void EnterGameScene()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Game");    
+        }
     }
 
     public bool IsMasterClient()
@@ -87,9 +96,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     //aqui voce esta dentro da sala e chegou a hora de se SPAWNAR na cena
     public override void OnJoinedRoom()
     {
-        //GameObject self = PhotonNetwork.Instantiate("Player", Random.insideUnitSphere * 2, Quaternion.identity);
-        //self.name = nickName;
-
+        PhotonNetwork.AutomaticallySyncScene = true;
         UIManager uIManager = FindAnyObjectByType<UIManager>();
         if (uIManager != null) uIManager.OpenWaitingPanel(PhotonNetwork.IsMasterClient);
     }
@@ -105,6 +112,11 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log("Player left room: " + otherPlayer.NickName);
-        GameManager.Instance.LoadScene("Menu");
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        UIManager uIManager = FindAnyObjectByType<UIManager>();
+        if (uIManager != null) uIManager.UpdateRoomList(roomList);
     }
 }

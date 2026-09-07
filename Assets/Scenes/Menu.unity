@@ -3908,12 +3908,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337581321}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1363390550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1337581323
 MonoBehaviour:
@@ -3942,6 +3942,7 @@ MonoBehaviour:
   newRoomFeedbackText: {fileID: 1339596646}
   joinButtonText: {fileID: 2009836568}
   quitButton: {fileID: 2108095143}
+  roomCardPrefab: {fileID: 4651419512095586491, guid: e047ea46d91011e40a40aff53f722dbf, type: 3}
 --- !u!1 &1339596644
 GameObject:
   m_ObjectHideFlags: 0
@@ -4155,7 +4156,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1337581322}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1411717707
@@ -6393,7 +6395,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2109478420}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1337581323}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2109478420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6810,6 +6824,5 @@ SceneRoots:
   - {fileID: 944676201}
   - {fileID: 1880944340}
   - {fileID: 1363390550}
-  - {fileID: 1337581322}
   - {fileID: 923525104}
   - {fileID: 859165006}
