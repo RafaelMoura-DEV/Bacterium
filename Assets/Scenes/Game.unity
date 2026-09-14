@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3003a0460e1ce124c8e7f4bf098b1685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossManager
-  currentBossIndex: 2
+  currentBossIndex: 0
 --- !u!4 &29498853
 Transform:
   m_ObjectHideFlags: 0
@@ -1455,8 +1455,9 @@ GameObject:
   - component: {fileID: 520224939}
   - component: {fileID: 520224942}
   - component: {fileID: 520224943}
+  - component: {fileID: 520224944}
   m_Layer: 5
-  m_Name: Button First Player
+  m_Name: Behaviour First Player
   m_TagString: ButtonPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1592,6 +1593,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1130322815}
+          m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+          m_MethodName: ToggleInfoPanel
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 1250
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -1605,6 +1618,18 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1130322815}
+          m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+          m_MethodName: ToggleInfoPanel
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: -1250
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -1625,6 +1650,23 @@ MonoBehaviour:
   - {fileID: 638900850}
   - {fileID: 269610629}
   - {fileID: 119047572}
+--- !u!114 &520224944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520224937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38eade5f3c200d34492d889be56a5fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  characterName: Gay
+  currentHealth: 100
+  maxHealth: 100
+  resistence: 25
+  damage: 20
 --- !u!1 &638900847
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,81 +2072,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &837087292
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 837087293}
-  - component: {fileID: 837087295}
-  - component: {fileID: 837087294}
-  m_Layer: 5
-  m_Name: Extra Panel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &837087293
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837087292}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1826039597}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00014496, y: -95.83342}
-  m_SizeDelta: {x: 224.92, y: 109.3334}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &837087294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837087292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.14509805, g: 0.14509805, b: 0.14509805, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &837087295
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 837087292}
-  m_CullTransparentMesh: 1
 --- !u!1 &860466124
 GameObject:
   m_ObjectHideFlags: 0
@@ -2780,6 +2747,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101130775}
   m_CullTransparentMesh: 1
+--- !u!1 &1130322814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1130322816}
+  - component: {fileID: 1130322815}
+  m_Layer: 0
+  m_Name: HUDManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1130322815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130322814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0223086ef0476df45bee20595951494f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HUDController
+  infoPanelTransform: {fileID: 1826039597}
+--- !u!4 &1130322816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130322814}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1151419369
 GameObject:
   m_ObjectHideFlags: 0
@@ -3695,8 +3707,9 @@ GameObject:
   - component: {fileID: 1466975260}
   - component: {fileID: 1466975263}
   - component: {fileID: 1466975264}
+  - component: {fileID: 1466975265}
   m_Layer: 5
-  m_Name: Button Second Player
+  m_Name: Behaviour Second Player
   m_TagString: ButtonPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3832,6 +3845,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1130322815}
+          m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+          m_MethodName: ToggleInfoPanel
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 1250
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -3845,6 +3870,18 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1130322815}
+          m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+          m_MethodName: ToggleInfoPanel
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: -1250
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -3865,6 +3902,23 @@ MonoBehaviour:
   - {fileID: 638900850}
   - {fileID: 269610629}
   - {fileID: 119047572}
+--- !u!114 &1466975265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466975258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38eade5f3c200d34492d889be56a5fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  characterName: Ze Droga
+  currentHealth: 100
+  maxHealth: 100
+  resistence: 25
+  damage: 20
 --- !u!1 &1651790957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3878,8 +3932,9 @@ GameObject:
   - component: {fileID: 1651790959}
   - component: {fileID: 1651790962}
   - component: {fileID: 1651790961}
+  - component: {fileID: 1651790963}
   m_Layer: 5
-  m_Name: Highlight Boss Image
+  m_Name: 'Behaviour Boss '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3988,6 +4043,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1130322815}
+          m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+          m_MethodName: ToggleInfoPanel
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 1250
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -4004,6 +4071,35 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1130322815}
+          m_TargetAssemblyTypeName: HUDController, Assembly-CSharp
+          m_MethodName: ToggleInfoPanel
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: -1250
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1651790963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651790957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38eade5f3c200d34492d889be56a5fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Character
+  characterName: Paia 3000
+  currentHealth: 150
+  maxHealth: 150
+  resistence: 0
+  damage: 30
 --- !u!1 &1799885889
 GameObject:
   m_ObjectHideFlags: 0
@@ -4250,12 +4346,11 @@ RectTransform:
   - {fileID: 1237164848}
   - {fileID: 1302478217}
   - {fileID: 803425139}
-  - {fileID: 837087293}
   m_Father: {fileID: 1421993016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 165, y: 0}
+  m_AnchoredPosition: {x: -170, y: 0}
   m_SizeDelta: {x: 278.2759, y: 346.03}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1826039598
@@ -4699,3 +4794,4 @@ SceneRoots:
   - {fileID: 1421993016}
   - {fileID: 826340046}
   - {fileID: 29498853}
+  - {fileID: 1130322816}
