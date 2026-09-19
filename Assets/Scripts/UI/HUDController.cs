@@ -70,7 +70,7 @@ public class HUDController : MonoBehaviour
     {
         infoPanelTexts[0].text = character.characterName;
         infoPanelTexts[1].text = "VIDA: " + character.currentHealth.ToString() + "/" + character.maxHealth.ToString();
-        infoPanelTexts[2].text = "DANO: " + character.damage.ToString();
+        infoPanelTexts[2].text = "FORÇA: " + character.damage.ToString();
         infoPanelTexts[3].text = "RESISTÊNCIA: " + character.resistence + "%";
     }
 }
