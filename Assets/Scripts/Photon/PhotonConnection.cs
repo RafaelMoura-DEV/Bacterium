@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+
 public class PhotonConnection : MonoBehaviourPunCallbacks
 {
     public static PhotonConnection Instance { get; private set; }

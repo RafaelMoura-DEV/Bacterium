@@ -8,6 +8,12 @@ public class HUDController : MonoBehaviour
     private Coroutine currentMovementCoroutine;
     private TextMeshProUGUI[] infoPanelTexts;
 
+    [SerializeField] TextMeshProUGUI firstPlayerName;
+    [SerializeField] TextMeshProUGUI secondPlayerName;
+
+    [SerializeField] GameObject buttonFirstPlayer; // referencia do behaviour first player
+    [SerializeField] GameObject buttonSecondPlayer; // referencia do behaviour second player
+
     private void Start()
     {
         infoPanelTexts = new TextMeshProUGUI[infoPanelTransform.childCount];
@@ -16,6 +22,18 @@ public class HUDController : MonoBehaviour
         {
             infoPanelTexts[i] = infoPanelTransform.GetChild(i).GetComponent<TextMeshProUGUI>();
         }
+    }
+
+    public void SetPlayersNames(string firstName, string secondName)
+    {
+        firstPlayerName.text = firstName;
+        secondPlayerName.text = secondName;
+
+        Character character1 = buttonFirstPlayer.GetComponent<Character>();
+        if (character1 != null ) character1.characterName = firstName;
+
+        Character character2 = buttonSecondPlayer.GetComponent<Character>();
+        if (character2 != null) character2.characterName = secondName;
     }
 
     public void ToggleInfoPanel(float speed)
