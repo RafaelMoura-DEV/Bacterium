@@ -196,51 +196,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7059154}
   m_CullTransparentMesh: 1
---- !u!1 &29498851
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 29498853}
-  - component: {fileID: 29498852}
-  m_Layer: 0
-  m_Name: BossManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &29498852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29498851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3003a0460e1ce124c8e7f4bf098b1685, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossManager
-  currentBossIndex: 0
---- !u!4 &29498853
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 29498851}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &119047569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,7 +1589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -410, y: -315}
+  m_AnchoredPosition: {x: -526, y: -315}
   m_SizeDelta: {x: 225, y: 340}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &520224939
@@ -1814,14 +1769,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 520224937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38eade5f3c200d34492d889be56a5fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: dbddef5ebc6e68843b2625f723cd2f0c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
   characterName: 
   currentHealth: 100
   maxHealth: 100
   resistence: 25
-  damage: 20
+  damage: 15
+  characterSpriteRender: {fileID: 385689250}
+  characterAnimator: {fileID: 385689252}
 --- !u!1 &638900847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,6 +1893,78 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &652007361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 652007362}
+  - component: {fileID: 652007363}
+  - component: {fileID: 652007364}
+  m_Layer: 0
+  m_Name: BattleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &652007362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652007361}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &652007363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652007361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b775a05d3c117bf42a27f81e2190f189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleManager
+  CurrentGameState: 0
+  players:
+  - {fileID: 520224944}
+  - {fileID: 1466975265}
+  boss: {fileID: 1651790965}
+--- !u!114 &652007364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652007361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &760433275
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,6 +2057,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 652007363}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: ChooseDefense
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2611,7 +2652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &941057585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4698,7 +4739,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60, y: -315}
+  m_AnchoredPosition: {x: -198, y: -315}
   m_SizeDelta: {x: 225, y: 340}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1466975260
@@ -4878,14 +4919,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1466975258}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38eade5f3c200d34492d889be56a5fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: dbddef5ebc6e68843b2625f723cd2f0c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter
   characterName: 
   currentHealth: 100
   maxHealth: 100
   resistence: 25
-  damage: 20
+  damage: 15
+  characterSpriteRender: {fileID: 269593941}
+  characterAnimator: {fileID: 269593943}
 --- !u!1 &1542192889
 GameObject:
   m_ObjectHideFlags: 0
@@ -5036,7 +5079,8 @@ GameObject:
   - component: {fileID: 1651790959}
   - component: {fileID: 1651790962}
   - component: {fileID: 1651790961}
-  - component: {fileID: 1651790963}
+  - component: {fileID: 1651790964}
+  - component: {fileID: 1651790965}
   m_Layer: 5
   m_Name: 'Behaviour Boss '
   m_TagString: Untagged
@@ -5060,7 +5104,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 167, y: 125}
+  m_AnchoredPosition: {x: 53, y: -66}
   m_SizeDelta: {x: 390, y: 475}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1651790959
@@ -5187,7 +5231,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &1651790963
+--- !u!114 &1651790964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5196,14 +5240,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1651790957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38eade5f3c200d34492d889be56a5fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 3003a0460e1ce124c8e7f4bf098b1685, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Character
-  characterName: Paia 3000
+  m_EditorClassIdentifier: Assembly-CSharp::BossManager
+  currentBossIndex: 1
+--- !u!114 &1651790965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651790957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442184b7ef37d9e498a55912334c7f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
+  characterName: Safadao
   currentHealth: 150
   maxHealth: 150
   resistence: 0
   damage: 30
+  characterSpriteRender: {fileID: 0}
+  characterAnimator: {fileID: 0}
 --- !u!1 &1799885889
 GameObject:
   m_ObjectHideFlags: 0
@@ -5506,6 +5565,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: DisplayerController, Assembly-CSharp
         m_MethodName: SelectButton
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 652007363}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: ChooseAttack
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6701,6 +6772,6 @@ SceneRoots:
   - {fileID: 149461310}
   - {fileID: 1421993016}
   - {fileID: 826340046}
-  - {fileID: 29498853}
   - {fileID: 1130322816}
   - {fileID: 941057586}
+  - {fileID: 652007362}
