@@ -15,16 +15,16 @@ public class Character : MonoBehaviour
     {
         currentHealth -= damage;
 
-        if (currentHealth <= 0) Die();
+        if (currentHealth <= 0) VirtualDie();
     }
 
-    protected virtual void Die()
+    protected virtual void VirtualDie()
     {
         
     }
 
-    public virtual void Attack(Character target, int damage)
+    public virtual void VirtualAttack()
     {
-        target.TakeDamage(damage);
+        
     }
 }

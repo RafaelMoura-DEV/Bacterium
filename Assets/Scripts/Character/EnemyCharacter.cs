@@ -7,13 +7,13 @@ public class EnemyCharacter : Character
         base.TakeDamage(damage);
     }
 
-    protected override void Die()
+    protected override void VirtualDie()
     {
-        base.Die();
+        base.VirtualDie();
     }
 
-    public override void Attack(Character target, int damage)
+    public override void VirtualAttack()
     {
-        base.Attack(target, damage);
+        base.VirtualAttack();
     }
 }

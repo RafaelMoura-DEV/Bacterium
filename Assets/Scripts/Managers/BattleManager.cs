@@ -1,6 +1,5 @@
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using System.Collections.Generic;
 using System;
 
@@ -21,8 +20,10 @@ public class BattleManager : MonoBehaviour
     public Action OnVictory;
     public Action OnDefeat;
 
-    public Character[] players;
+    public PlayerCharacter[] players;
     public Character boss;
+
+    private int totalDamage = 0;
 
     // ----------------------------------------------------------------------------------- //
 
@@ -65,16 +66,21 @@ public class BattleManager : MonoBehaviour
 
             if (playerAction == PlayerAction.Attack)
             {
-                //Debug.Log("Player " + actorNumber + " atacou!");
-                players[actorNumber - 1].Attack(boss, 10);
+                photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Attack);
+
+                totalDamage += players[actorNumber - 1].damage;
             }
             else if (playerAction == PlayerAction.Defense)
             {
-                Debug.Log("Player " + actorNumber + " defendeu!");
+                photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Defense);
             }
         }
 
+        int targetViewID = boss.GetComponent<PhotonView>().ViewID;
+        photonView.RPC(nameof(ApplyDamage),RpcTarget.All, targetViewID, totalDamage);
+
         playerActions.Clear();
+        totalDamage = 0;
         ChangeGameState(GameState.BossTurn);
         OnPlayerTurnEnd?.Invoke();
     }
@@ -107,5 +113,31 @@ public class BattleManager : MonoBehaviour
     void SyncGameState(int state)
     {
         CurrentGameState = (GameState)state;
-    }  
+    }
+
+
+    [PunRPC]
+    void ApplyDamage(int targetViewID, int damage)
+    {
+        PhotonView targetView = PhotonView.Find(targetViewID);
+
+        EnemyCharacter enemy = targetView.GetComponent<EnemyCharacter>();
+
+        enemy.TakeDamage(damage);
+    }
+
+    [PunRPC]
+    void SetPlayerActionFeedback(int playerIndex, int playerAction)
+    {
+        switch (playerAction)
+        {
+            case (int)PlayerAction.Attack:
+                players[playerIndex].VirtualAttack();
+                break;
+
+            case (int)PlayerAction.Defense:
+                players[playerIndex].VirtualDeffend();
+                break;
+        }        
+    }
 }

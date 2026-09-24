@@ -7,15 +7,20 @@ public class PlayerCharacter : Character
         base.TakeDamage(damage);
     }
 
-    protected override void Die()
+    protected override void VirtualDie()
     {
-        base.Die();
+        base.VirtualDie();
     }
 
-    public override void Attack(Character target, int damage)
+    public override void VirtualAttack()
     {
         this.characterSpriteRender.color = Color.red;
 
-        base.Attack(target, damage);
+        base.VirtualAttack();
+    }
+
+    public void VirtualDeffend()
+    {
+        this.characterSpriteRender.color = Color.blue;
     }
 }
