@@ -14,13 +14,13 @@ public class PlayerCharacter : Character
 
     public override void VirtualAttack()
     {
-        this.characterSpriteRender.color = Color.red;
+        this.characterAnimator.SetTrigger("Attack");
 
         base.VirtualAttack();
     }
 
     public void VirtualDeffend()
     {
-        this.characterSpriteRender.color = Color.blue;
+        this.characterAnimator.SetTrigger("Deffend");
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class BattleManager : MonoBehaviour
 {
@@ -14,9 +15,13 @@ public class BattleManager : MonoBehaviour
 
     private Dictionary<int, PlayerAction> playerActions = new Dictionary<int, PlayerAction>();
 
-    public Action OnPlayerTurnEnd;
     public Action OnPlayerTurnStart;
+    public Action OnPlayerTurnEnd;
+
+    public Action OnEnemyTurnStart;
+    public Action OnEnemyTurnEnd;
     public Action OnEnemyDefeated;
+
     public Action OnVictory;
     public Action OnDefeat;
 
@@ -25,7 +30,7 @@ public class BattleManager : MonoBehaviour
 
     private int totalDamage = 0;
 
-    // ----------------------------------------------------------------------------------- //
+    // ------------------------------------------------------------------------------------------- //
 
     private void Start()
     {
@@ -59,30 +64,9 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("TURNO DOS JOGADORES ENCERRADO!");
 
-        foreach (var action in playerActions)
-        {
-            int actorNumber = action.Key;
-            PlayerAction playerAction = action.Value;
-
-            if (playerAction == PlayerAction.Attack)
-            {
-                photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Attack);
-
-                totalDamage += players[actorNumber - 1].damage;
-            }
-            else if (playerAction == PlayerAction.Defense)
-            {
-                photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Defense);
-            }
-        }
-
-        int targetViewID = boss.GetComponent<PhotonView>().ViewID;
-        photonView.RPC(nameof(ApplyDamage),RpcTarget.All, targetViewID, totalDamage);
-
-        playerActions.Clear();
-        totalDamage = 0;
-        ChangeGameState(GameState.BossTurn);
+        ChangeGameState(GameState.Interlude);
         OnPlayerTurnEnd?.Invoke();
+        StartCoroutine(FeedBackCoroutine());   
     }
 
     void ChangeGameState(GameState newState)
@@ -139,5 +123,44 @@ public class BattleManager : MonoBehaviour
                 players[playerIndex].VirtualDeffend();
                 break;
         }        
+    }
+
+    [PunRPC]
+    void SetEnemyDamageFeedback()
+    {
+        // chama metodo do inimigo tomando dano
+    }
+
+    // ---------------------------- CORROTINAS ------------------------------------ //
+
+    IEnumerator FeedBackCoroutine()
+    {
+        foreach (var action in playerActions)
+        {
+            int actorNumber = action.Key;
+            PlayerAction playerAction = action.Value;
+
+            if (playerAction == PlayerAction.Attack)
+            {
+                photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Attack);
+                photonView.RPC(nameof(SetEnemyDamageFeedback), RpcTarget.All);
+
+                totalDamage += players[actorNumber - 1].damage;
+            }
+            else if (playerAction == PlayerAction.Defense)
+            {
+                photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Defense);
+            }
+
+            yield return new WaitForSeconds(1.0f); // tempo entre as acoes dos players, apenas para ficar com feeling melhor
+        }
+
+        int targetViewID = boss.GetComponent<PhotonView>().ViewID;
+        photonView.RPC(nameof(ApplyDamage), RpcTarget.All, targetViewID, totalDamage);
+
+        playerActions.Clear();
+        totalDamage = 0;
+        ChangeGameState(GameState.BossTurn);
+        OnEnemyTurnStart?.Invoke();
     }
 }
