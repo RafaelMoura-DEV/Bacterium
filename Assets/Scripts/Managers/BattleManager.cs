@@ -51,9 +51,10 @@ public class BattleManager : MonoBehaviour
 
     // BOSS //
 
-    public void AttackPlayer()
+    public void AttackPlayer(PlayerCharacter target, int damage)
     {
-
+        int targetViewID = target.GetComponent<PhotonView>().ViewID;
+        photonView.RPC(nameof(ApplyDamage), RpcTarget.All, targetViewID, damage);
     }
 
     // --------------------------------- MÉTODOS COMUNS PRIVADOS  --------------------------------- //

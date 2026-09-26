@@ -9,13 +9,18 @@ public class BossManager : MonoBehaviour
 
     [SerializeField] GameObject[] bossesObj;
 
+    private EnemyCharacter bossCharacter;
     public Boss activeBoss;
+
+    [SerializeField] PlayerCharacter playerOne;
+    [SerializeField] PlayerCharacter playerTwo;
 
     // ----------------------------------------------------------------------------------------------------- //
 
     private void Awake()
     {
         battleManager = FindAnyObjectByType<BattleManager>();
+        bossCharacter = GetComponent<EnemyCharacter>();
     }
 
     private void Start()
@@ -25,12 +30,12 @@ public class BossManager : MonoBehaviour
 
     void OnEnable()
     {
-        //battleManager.OnEnemyTurnStart += ChooseAttack;
+        battleManager.OnEnemyTurnStart += ChooseAttack;
     }
 
     private void OnDisable()
     {
-        //battleManager.OnEnemyTurnStart -= ChooseAttack;
+        battleManager.OnEnemyTurnStart -= ChooseAttack;
     }
 
     // ----------------------------------------------------------------------------------------------------- //
@@ -46,12 +51,12 @@ public class BossManager : MonoBehaviour
 
     void ChooseAttack()
     {
-        Invoke(nameof(Attack), 2.0f); // so pro ataque nao ser instantaneo. Feeling melhor
+        Invoke(nameof(Attack), 1.5f); // so pro ataque nao ser instantaneo. Feeling melhor
     }
 
     void Attack()
     {
-
+        battleManager.AttackPlayer(playerTwo, bossCharacter.damage);
     }
 }
 

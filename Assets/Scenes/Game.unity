@@ -1779,8 +1779,10 @@ MonoBehaviour:
   resistence: 25
   damage: 15
   isAlive: 1
+  isDefending: 0
   characterSpriteRender: {fileID: 385689250}
   characterAnimator: {fileID: 385689252}
+  silhouetteAnimator: {fileID: 879220237}
 --- !u!114 &520224945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4953,8 +4955,10 @@ MonoBehaviour:
   resistence: 25
   damage: 15
   isAlive: 1
+  isDefending: 0
   characterSpriteRender: {fileID: 269593941}
   characterAnimator: {fileID: 269593943}
+  silhouetteAnimator: {fileID: 1241145936}
 --- !u!114 &1466975266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5297,6 +5301,8 @@ MonoBehaviour:
   - {fileID: 1908378692}
   - {fileID: 1266234817}
   - {fileID: 149461307}
+  playerOne: {fileID: 520224944}
+  playerTwo: {fileID: 1466975265}
 --- !u!114 &1651790965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5315,8 +5321,6 @@ MonoBehaviour:
   resistence: 0
   damage: 30
   isAlive: 1
-  characterSpriteRender: {fileID: 0}
-  characterAnimator: {fileID: 0}
 --- !u!114 &1651790966
 MonoBehaviour:
   m_ObjectHideFlags: 0

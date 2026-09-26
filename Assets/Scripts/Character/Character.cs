@@ -9,9 +9,6 @@ public class Character : MonoBehaviour
     public int damage;
     public bool isAlive = true; // se acabar o turno e a bool for falsa, chama o metodo Die
 
-    public SpriteRenderer characterSpriteRender;
-    public Animator characterAnimator;
-
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
