@@ -4,6 +4,7 @@ public class CharacterHighlight : MonoBehaviour
 {
     BossManager bossManager;
     HUDController hudController;
+    BattleManager battleManager;
 
     [SerializeField] private SpriteRenderer playerSilhouette;
     [SerializeField] private SpriteRenderer[] bossSilhouettes;
@@ -13,10 +14,17 @@ public class CharacterHighlight : MonoBehaviour
     {
         bossManager = FindAnyObjectByType<BossManager>();     
         hudController = FindAnyObjectByType<HUDController>();
+        battleManager = FindAnyObjectByType<BattleManager>();
     }
 
     public void ActivateHighlight()
     {
+        if (battleManager.CurrentGameState != BattleManager.GameState.PlayerTurn)
+        {
+            DeactivateHighlight();
+            return;
+        }
+
         if (this.gameObject.tag == "ButtonPlayer")
         {
             playerSilhouette.color = new Vector4(playerSilhouette.color.r, playerSilhouette.color.g, playerSilhouette.color.b, 0.1f);

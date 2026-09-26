@@ -405,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &149461308
 Animator:
   serializedVersion: 7
@@ -5246,15 +5246,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3003a0460e1ce124c8e7f4bf098b1685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossManager
-  currentBossIndex: 0
+  currentBossIndex: 2
   bossesObj:
   - {fileID: 1908378692}
   - {fileID: 1266234817}
   - {fileID: 149461307}
-  damagedBossesSprites:
-  - {fileID: 21300000, guid: 12750a3a7d317de4bb4dfea6281174a0, type: 3}
-  - {fileID: 21300000, guid: cbb7d05c494f19643ab3473a4ec13d52, type: 3}
-  - {fileID: 21300000, guid: 39acfaab5a7870145a624c2d8474f48d, type: 3}
 --- !u!114 &1651790965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6209,7 +6205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1908378693
 SpriteRenderer:
   serializedVersion: 2

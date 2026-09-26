@@ -11,11 +11,9 @@ public class EnemyCharacter : Character
 
     public override void TakeDamage(int damage)
     {
-        bossManager.activeBoss.bossAnimator.speed = 0.0f;
         bossManager.activeBoss.bossSilhouetteAnimator.speed = 0.0f;
-
-        bossManager.activeBoss.bossSpriteRenderer.sprite = bossManager.activeBoss.damagedBossSprite;
-
+        bossManager.activeBoss.bossAnimator.SetTrigger("Damaged");
+        
         base.TakeDamage(damage);
     }
 

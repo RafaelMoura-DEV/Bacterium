@@ -144,7 +144,7 @@ public class BattleManager : MonoBehaviour
                 photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Defense);
             }
 
-            yield return new WaitForSeconds(1.0f); // tempo entre as acoes dos players, apenas para ficar com feeling melhor
+            yield return new WaitForSeconds(1.5f); // tempo entre as acoes dos players, apenas para ficar com feeling melhor
         }
     
         playerActions.Clear();
