@@ -37,6 +37,8 @@ public class BattleManager : MonoBehaviour
 
     // --------------------------------- MÉTODOS COMUNS PÚBLICOS  --------------------------------- //
 
+    // PLAYER //
+
     public void ChooseAttack()
     {
         ChooseAction(PlayerAction.Attack);
@@ -45,6 +47,13 @@ public class BattleManager : MonoBehaviour
     public void ChooseDefense()
     {
         ChooseAction(PlayerAction.Defense);
+    }
+
+    // BOSS //
+
+    public void AttackPlayer()
+    {
+
     }
 
     // --------------------------------- MÉTODOS COMUNS PRIVADOS  --------------------------------- //
@@ -78,6 +87,8 @@ public class BattleManager : MonoBehaviour
 
     // -------------------------------- MÉTODOS EXCLUSIVOS DO MASTER -------------------------------- //
 
+    // PLAYER //
+
     [PunRPC]
     void RegisterAction(int actorNumber, int action)
     {
@@ -103,9 +114,9 @@ public class BattleManager : MonoBehaviour
     {
         PhotonView targetView = PhotonView.Find(targetViewID);
 
-        EnemyCharacter enemy = targetView.GetComponent<EnemyCharacter>();
+        Character target = targetView.GetComponent<Character>();
 
-        enemy.TakeDamage(damage);
+        target.TakeDamage(damage);
     }
 
     [PunRPC]
@@ -121,6 +132,12 @@ public class BattleManager : MonoBehaviour
                 players[playerIndex].VirtualDeffend();
                 break;
         }        
+    }
+
+    [PunRPC]
+    void SetPlayerDefense(int playerIndex, bool isDefending)
+    {
+        players[playerIndex].isDefending = isDefending;    
     }
 
     // ---------------------------- CORROTINAS ------------------------------------ //
@@ -141,6 +158,7 @@ public class BattleManager : MonoBehaviour
             }
             else if (playerAction == PlayerAction.Defense)
             {
+                photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, actorNumber -1, true);
                 photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Defense);
             }
 
@@ -148,7 +166,16 @@ public class BattleManager : MonoBehaviour
         }
     
         playerActions.Clear();
-        ChangeGameState(GameState.BossTurn);
-        OnEnemyTurnStart?.Invoke();
+
+        if (boss.isAlive) // so chama o evento do boss se ele estiver vivo
+        {
+            ChangeGameState(GameState.BossTurn);
+            OnEnemyTurnStart?.Invoke();
+        }
+
+        else
+        {
+            ChangeGameState(GameState.Interlude);
+        }
     }
 }

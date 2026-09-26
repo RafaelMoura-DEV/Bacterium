@@ -1,17 +1,39 @@
+using System.Collections;
 using UnityEngine;
 
 public class BossManager : MonoBehaviour
 {
+    BattleManager battleManager;
+
     public int currentBossIndex = 0;
 
     [SerializeField] GameObject[] bossesObj;
 
     public Boss activeBoss;
 
-    private void Start()
+    // ----------------------------------------------------------------------------------------------------- //
+
+    private void Awake()
     {
+        battleManager = FindAnyObjectByType<BattleManager>();
+    }
+
+    private void Start()
+    {       
         UpdateActiveBoss();
     }
+
+    void OnEnable()
+    {
+        //battleManager.OnEnemyTurnStart += ChooseAttack;
+    }
+
+    private void OnDisable()
+    {
+        //battleManager.OnEnemyTurnStart -= ChooseAttack;
+    }
+
+    // ----------------------------------------------------------------------------------------------------- //
 
     void UpdateActiveBoss()
     {
@@ -20,6 +42,16 @@ public class BossManager : MonoBehaviour
         SpriteRenderer spriteRenderer = bossesObj[currentBossIndex].GetComponent<SpriteRenderer>();
 
         activeBoss = new Boss(bossesObj[currentBossIndex], spriteRenderer, animator, animator1);
+    }
+
+    void ChooseAttack()
+    {
+        Invoke(nameof(Attack), 2.0f); // so pro ataque nao ser instantaneo. Feeling melhor
+    }
+
+    void Attack()
+    {
+
     }
 }
 

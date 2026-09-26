@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
+    public bool isDefending = false;
+
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);

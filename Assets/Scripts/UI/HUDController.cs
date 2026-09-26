@@ -4,6 +4,8 @@ using TMPro;
 
 public class HUDController : MonoBehaviour
 {
+    private BattleManager battleManager;
+
     [SerializeField] RectTransform infoPanelTransform;
     private Coroutine currentMovementCoroutine;
     private TextMeshProUGUI[] infoPanelTexts;
@@ -14,6 +16,13 @@ public class HUDController : MonoBehaviour
     [SerializeField] GameObject buttonFirstPlayer; // referencia do behaviour first player
     [SerializeField] GameObject buttonSecondPlayer; // referencia do behaviour second player
 
+    // ------------------------------------------------------------------------------------------------- //
+
+    private void Awake()
+    {
+        battleManager = FindAnyObjectByType<BattleManager>();
+    }
+
     private void Start()
     {
         infoPanelTexts = new TextMeshProUGUI[infoPanelTransform.childCount];
@@ -23,6 +32,18 @@ public class HUDController : MonoBehaviour
             infoPanelTexts[i] = infoPanelTransform.GetChild(i).GetComponent<TextMeshProUGUI>();
         }
     }
+
+    private void OnEnable()
+    {
+        battleManager.OnPlayerTurnEnd += HidePanelOnEndTurn;
+    }
+
+    private void OnDisable()
+    {
+        battleManager.OnPlayerTurnEnd -= HidePanelOnEndTurn;
+    }
+
+    // ------------------------------------------------------------------------------------------------- //
 
     public void SetPlayersNames(string firstName, string secondName)
     {
@@ -38,6 +59,8 @@ public class HUDController : MonoBehaviour
 
     public void ToggleInfoPanel(float speed)
     {
+        if (battleManager.CurrentGameState != BattleManager.GameState.PlayerTurn) return;
+
         // Interrompe qualquer movimento anterior
         if (currentMovementCoroutine != null)
         {
@@ -90,5 +113,11 @@ public class HUDController : MonoBehaviour
         infoPanelTexts[1].text = "VIDA: " + character.currentHealth.ToString() + "/" + character.maxHealth.ToString();
         infoPanelTexts[2].text = "FORÇA: " + character.damage.ToString();
         infoPanelTexts[3].text = "RESISTÊNCIA: " + character.resistence + "%";
+    }
+
+    void HidePanelOnEndTurn()
+    {
+        StopAllCoroutines();
+        infoPanelTransform.anchoredPosition = new Vector2(-165.0f, 0);
     }
 }
