@@ -24,6 +24,16 @@ public class EnemyCharacter : Character
 
     public override void VirtualAttack()
     {
+        bossManager.activeBoss.bossAnimator.SetTrigger("Attack");
+
         base.VirtualAttack();
+    }
+
+    public override void ResetAnimation()
+    {
+        bossManager.activeBoss.bossAnimator.Play("Idle", 0, 0f);
+        bossManager.activeBoss.bossSilhouetteAnimator.Play("Idle", 0, 0f);
+        bossManager.activeBoss.bossSilhouetteAnimator.speed = 1.0f;
+        base.ResetAnimation();
     }
 }

@@ -11,22 +11,7 @@ public class PlayerCharacter : Character
 
     public override void TakeDamage(int damage)
     {
-        int finalDamage = 0;
-        finalDamage += damage;
-
-        if (isDefending == false)
-        {
-            silhouetteAnimator.speed = 0.0f;
-            characterAnimator.SetTrigger("Damaged");
-        }
-
-        else
-        {
-            StartCoroutine(DefenseFeedbackCoroutine(0.25f, 0.065f, characterAnimator.gameObject.transform));
-            finalDamage = Mathf.RoundToInt(finalDamage * (1f - resistence / 100f));
-        }
-
-        base.TakeDamage(finalDamage);
+        Invoke(nameof(DamageAnimationFeedback), 1.0f);
     }
 
     protected override void VirtualDie()
@@ -51,6 +36,28 @@ public class PlayerCharacter : Character
         characterAnimator.Play("Idle", 0, 0f);
         silhouetteAnimator.Play("Idle", 0, 0f);
         base.ResetAnimation();
+    }
+
+    // --------------------------------------- CORROTINAS --------------------------------------- //
+
+    void DamageAnimationFeedback() // o certo era usar um trigger event no animator pra ativar a anim de dano so no final da anim de ataque mas fodase por enquanto XD
+    {
+        int finalDamage = 0;
+        finalDamage += damage;
+
+        if (isDefending == false)
+        {
+            silhouetteAnimator.speed = 0.0f;
+            characterAnimator.SetTrigger("Damaged");
+        }
+
+        else
+        {
+            StartCoroutine(DefenseFeedbackCoroutine(0.25f, 0.065f, characterAnimator.gameObject.transform));
+            finalDamage = Mathf.RoundToInt(finalDamage * (1f - resistence / 100f));
+        }
+
+        base.TakeDamage(finalDamage);
     }
 
     IEnumerator DefenseFeedbackCoroutine(float duration, float intensity, Transform spriteTransform)

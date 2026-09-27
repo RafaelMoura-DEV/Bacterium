@@ -58,6 +58,7 @@ public class BattleManager : MonoBehaviour
     {
         int targetViewID = target.GetComponent<PhotonView>().ViewID;
         photonView.RPC(nameof(ApplyDamage), RpcTarget.All, targetViewID, damage);
+        photonView.RPC(nameof(SetBossActionFeedback), RpcTarget.All);
         photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
     }
 
@@ -130,11 +131,18 @@ public class BattleManager : MonoBehaviour
         }        
     }
 
+    [PunRPC]
+    void SetBossActionFeedback()
+    {
+        boss.VirtualAttack();
+    }
+
     [PunRPC] 
     void ResetCharactersAnimations()
     {
         players[0].ResetAnimation();
         players[1].ResetAnimation();
+        boss.ResetAnimation();
     }
 
     [PunRPC]
