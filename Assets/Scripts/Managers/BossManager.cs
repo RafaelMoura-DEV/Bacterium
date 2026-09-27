@@ -1,4 +1,4 @@
-using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 public class BossManager : MonoBehaviour
@@ -51,6 +51,7 @@ public class BossManager : MonoBehaviour
 
     void ChooseAttack()
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         Invoke(nameof(Attack), 1.5f); // so pro ataque nao ser instantaneo. Feeling melhor
     }
 

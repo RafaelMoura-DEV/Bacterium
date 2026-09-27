@@ -4,8 +4,29 @@ using UnityEngine.UI;
 
 public class DisplayerController : MonoBehaviour
 {
+    BattleManager battleManager;
+
     [SerializeField] TextMeshProUGUI displayerText;
     [SerializeField] GameObject[] actionButtons;
+
+    // -------------------------------------------------------------------------------------------------- //
+
+    private void Awake()
+    {
+        battleManager = FindAnyObjectByType<BattleManager>();
+    }
+
+    private void OnEnable()
+    {
+        battleManager.OnPlayerTurnStart += DeactivateButtons;
+    }
+
+    private void OnDisable()
+    {
+        battleManager.OnPlayerTurnStart -= DeactivateButtons;
+    }
+
+    // -------------------------------------------------------------------------------------------------- //
 
     public void UpdateDisplay(int informationIndex) // Attack = 0; Defense = 1; Fix = 2; Reroll = 3
     {
@@ -36,13 +57,18 @@ public class DisplayerController : MonoBehaviour
 
     public void SelectButton(int buttonIndex) // Attack = 0; Defense = 1; Fix = 2;
     {
+        DeactivateButtons();
+
+        actionButtons[buttonIndex].GetComponent<Button>().enabled = false;
+        actionButtons[buttonIndex].GetComponent<Image>().color = Color.gray;
+    }
+
+    void DeactivateButtons()
+    {
         for (int i = 0; i < actionButtons.Length; i++)
         {
             actionButtons[i].GetComponent<Button>().enabled = true;
             actionButtons[i].GetComponent<Image>().color = Color.white;
         }
-
-        actionButtons[buttonIndex].GetComponent<Button>().enabled = false;
-        actionButtons[buttonIndex].GetComponent<Image>().color = Color.gray;
     }
 }

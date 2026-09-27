@@ -3471,6 +3471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDController
   infoPanelTransform: {fileID: 1826039597}
+  cardsHolder: {fileID: 495720305}
   firstPlayerName: {fileID: 1101130777}
   secondPlayerName: {fileID: 1891849527}
   buttonFirstPlayer: {fileID: 520224937}

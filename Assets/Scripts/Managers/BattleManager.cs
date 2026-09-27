@@ -8,6 +8,8 @@ public class BattleManager : MonoBehaviour
 {
     PhotonView photonView;
 
+    public float interludeTime = 5.0f;
+
     public enum GameState { PlayerTurn, BossTurn, Interlude, Victory, Defeat };
     public GameState CurrentGameState = GameState.PlayerTurn;
 
@@ -20,6 +22,7 @@ public class BattleManager : MonoBehaviour
 
     public Action OnEnemyTurnStart;
     public Action OnEnemyTurnEnd;
+
     public Action OnEnemyDefeated;
 
     public Action OnVictory;
@@ -55,6 +58,7 @@ public class BattleManager : MonoBehaviour
     {
         int targetViewID = target.GetComponent<PhotonView>().ViewID;
         photonView.RPC(nameof(ApplyDamage), RpcTarget.All, targetViewID, damage);
+        photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
     }
 
     // --------------------------------- MÉTODOS COMUNS PRIVADOS  --------------------------------- //
@@ -68,15 +72,6 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(RegisterAction), PhotonNetwork.MasterClient, actorNumber, (int)action);
     }
 
-    void ResolvePlayerTurn()
-    {
-        Debug.Log("TURNO DOS JOGADORES ENCERRADO!");
-
-        ChangeGameState(GameState.Interlude);
-        OnPlayerTurnEnd?.Invoke();
-        StartCoroutine(FeedBackCoroutine());   
-    }
-
     void ChangeGameState(GameState newState)
     {
         if (!PhotonNetwork.IsMasterClient) return;
@@ -86,7 +81,7 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(SyncGameState), RpcTarget.All, (int)newState);
     }
 
-    // -------------------------------- MÉTODOS EXCLUSIVOS DO MASTER -------------------------------- //
+    // -------------------------------- MÉTODOS RPC -------------------------------- //
 
     // PLAYER //
 
@@ -99,7 +94,7 @@ public class BattleManager : MonoBehaviour
 
         if (playerActions.Count == 2)
         {
-            ResolvePlayerTurn();
+            photonView.RPC(nameof(ResolvePlayerTurn), RpcTarget.All);
         }
     }  
 
@@ -141,6 +136,19 @@ public class BattleManager : MonoBehaviour
         players[playerIndex].isDefending = isDefending;    
     }
 
+    [PunRPC]
+    void ResolvePlayerTurn()
+    {
+        StartCoroutine(FeedBackCoroutine());
+        StartCoroutine(PassTurnToBossCoroutine());
+    }
+
+    [PunRPC]
+    void ResolveBossTurn()
+    {
+        StartCoroutine(PassTurnToPlayersCoroutine());
+    }
+
     // ---------------------------- CORROTINAS ------------------------------------ //
 
     IEnumerator FeedBackCoroutine()
@@ -167,16 +175,31 @@ public class BattleManager : MonoBehaviour
         }
     
         playerActions.Clear();
+    }
 
-        if (boss.isAlive) // so chama o evento do boss se ele estiver vivo
-        {
-            ChangeGameState(GameState.BossTurn);
-            OnEnemyTurnStart?.Invoke();
-        }
+    IEnumerator PassTurnToBossCoroutine()
+    {
+        OnPlayerTurnEnd?.Invoke();
+        ChangeGameState(GameState.Interlude);
 
-        else
-        {
-            ChangeGameState(GameState.Interlude);
-        }
+        Debug.Log("INTERLUDE...");
+        yield return new WaitForSeconds(interludeTime); // tempo entre os turnos para mensagens na hud e oq precisar
+
+        Debug.Log("BOSS TURN!");
+        ChangeGameState(GameState.BossTurn);
+        OnEnemyTurnStart?.Invoke();
+    }
+
+    IEnumerator PassTurnToPlayersCoroutine()
+    {
+        OnEnemyTurnEnd?.Invoke();
+        ChangeGameState(GameState.Interlude);
+
+        Debug.Log("INTERLUDE...");
+        yield return new WaitForSeconds(interludeTime); // tempo entre os turnos para mensagens na hud e oq precisar
+
+        Debug.Log("PLAYERS TURN!");
+        ChangeGameState(GameState.PlayerTurn);
+        OnPlayerTurnStart?.Invoke();
     }
 }

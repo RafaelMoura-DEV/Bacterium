@@ -10,6 +10,8 @@ public class HUDController : MonoBehaviour
     private Coroutine currentMovementCoroutine;
     private TextMeshProUGUI[] infoPanelTexts;
 
+    [SerializeField] GameObject cardsHolder;
+
     [SerializeField] TextMeshProUGUI firstPlayerName;
     [SerializeField] TextMeshProUGUI secondPlayerName;
 
@@ -35,12 +37,16 @@ public class HUDController : MonoBehaviour
 
     private void OnEnable()
     {
+        battleManager.OnPlayerTurnStart += ShowCardsHolder;
         battleManager.OnPlayerTurnEnd += HidePanelOnEndTurn;
+        battleManager.OnPlayerTurnEnd += HideCardsHolder;
     }
 
     private void OnDisable()
     {
+        battleManager.OnPlayerTurnStart -= ShowCardsHolder;
         battleManager.OnPlayerTurnEnd -= HidePanelOnEndTurn;
+        battleManager.OnPlayerTurnEnd -= HideCardsHolder;
     }
 
     // ------------------------------------------------------------------------------------------------- //
@@ -119,5 +125,15 @@ public class HUDController : MonoBehaviour
     {
         StopAllCoroutines();
         infoPanelTransform.anchoredPosition = new Vector2(-165.0f, 0);
+    }
+
+    void HideCardsHolder()
+    {
+        cardsHolder.SetActive(false);
+    }
+
+    void ShowCardsHolder()
+    {
+        cardsHolder.SetActive(true);
     }
 }
