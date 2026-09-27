@@ -14,9 +14,12 @@ public class HUDController : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI firstPlayerName;
     [SerializeField] TextMeshProUGUI secondPlayerName;
+    [SerializeField] TextMeshProUGUI deadText; // da pra usar tbm para debuffs temporarios futuramente
 
     [SerializeField] GameObject buttonFirstPlayer; // referencia do behaviour first player
     [SerializeField] GameObject buttonSecondPlayer; // referencia do behaviour second player
+
+    private bool isClientOnGame = true;
 
     // ------------------------------------------------------------------------------------------------- //
 
@@ -121,6 +124,13 @@ public class HUDController : MonoBehaviour
         infoPanelTexts[3].text = "RESISTÊNCIA: " + character.resistence + "%";
     }
 
+    public void DisplayDieFeedback()
+    {
+        isClientOnGame = false;
+        deadText.text = "VOCÊ FOI MORTO...";
+        HideCardsHolder();
+    }
+
     void HidePanelOnEndTurn()
     {
         StopAllCoroutines();
@@ -129,11 +139,13 @@ public class HUDController : MonoBehaviour
 
     void HideCardsHolder()
     {
+        if (!isClientOnGame) return;
         cardsHolder.SetActive(false);
     }
 
     void ShowCardsHolder()
     {
+        if (!isClientOnGame) return;
         cardsHolder.SetActive(true);
     }
 }

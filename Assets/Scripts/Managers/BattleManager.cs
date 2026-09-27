@@ -8,7 +8,7 @@ public class BattleManager : MonoBehaviour
 {
     PhotonView photonView;
 
-    public float interludeTime = 5.0f;
+    public float interludeTime = 4.0f;
 
     public enum GameState { PlayerTurn, BossTurn, Interlude, Victory, Defeat };
     public GameState CurrentGameState = GameState.PlayerTurn;
@@ -82,6 +82,22 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(SyncGameState), RpcTarget.All, (int)newState);
     }
 
+    void CheckPlayersConditions()
+    {
+        players[0].CheckHP();
+        players[1].CheckHP();
+
+        int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        if (!players[actorNumber - 1].isAlive && actorNumber == PhotonNetwork.LocalPlayer.ActorNumber )
+        {
+            Debug.LogWarning("VOCÊ MORREU!!!");
+
+            HUDController hUDController = FindAnyObjectByType<HUDController>();
+            if (hUDController != null) hUDController.DisplayDieFeedback();
+        }
+    }
+
     // -------------------------------- MÉTODOS RPC -------------------------------- //
 
     // PLAYER //
@@ -93,7 +109,7 @@ public class BattleManager : MonoBehaviour
 
         playerActions[actorNumber] = (PlayerAction)action;
 
-        if (playerActions.Count == 2)
+        if (playerActions.Count == 2 || playerActions.Count == 1 && players[0].isAlive == false || playerActions.Count == 1 && players[1].isAlive == false)
         {
             photonView.RPC(nameof(ResolvePlayerTurn), RpcTarget.All);
         }
@@ -210,8 +226,12 @@ public class BattleManager : MonoBehaviour
         OnEnemyTurnEnd?.Invoke();
         ChangeGameState(GameState.Interlude);
 
+        yield return new WaitForSeconds(2.0f); // pra dar tempo de verificar a bool. Sim o codigo ta feio mas fodase XD
+
+        CheckPlayersConditions();
+
         Debug.Log("INTERLUDE...");
-        yield return new WaitForSeconds(interludeTime); // tempo entre os turnos para mensagens na hud e oq precisar
+        yield return new WaitForSeconds(interludeTime); // tempo entre os turnos para mensagens na hud e oq precisar  
 
         Debug.Log("PLAYERS TURN!");
         ChangeGameState(GameState.PlayerTurn);

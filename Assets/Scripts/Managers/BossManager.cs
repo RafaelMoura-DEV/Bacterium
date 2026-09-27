@@ -52,12 +52,30 @@ public class BossManager : MonoBehaviour
     void ChooseAttack()
     {
         if(!PhotonNetwork.IsMasterClient) return;
-        Invoke(nameof(Attack), 1.5f); // so pro ataque nao ser instantaneo. Feeling melhor
+        Invoke(nameof(Attack), 1.0f); // so pro ataque nao ser instantaneo. Feeling melhor
     }
 
     void Attack()
     {
-        battleManager.AttackPlayer(playerTwo, bossCharacter.damage);
+        PlayerCharacter target = null;
+
+        if (playerOne.isDefending && !playerTwo.isDefending) target = playerOne;
+
+        else if (playerTwo.isDefending && !playerOne.isDefending) target = playerTwo;
+
+        else if (playerTwo.isDefending && playerOne.isDefending || !playerTwo.isDefending && !playerOne.isDefending) // PROVISORIO PRO PLAYTEST 1
+        {
+            int x = Random.Range(0, 2);
+
+            if (x == 0) target = playerOne;
+            else target = playerTwo;
+        }
+
+        if (!playerOne.isAlive) target = playerTwo;
+
+        else if (!playerTwo.isAlive) target = playerOne;
+
+        battleManager.AttackPlayer(target, bossCharacter.damage);
     }
 }
 

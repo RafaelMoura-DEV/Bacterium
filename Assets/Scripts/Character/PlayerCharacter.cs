@@ -9,13 +9,17 @@ public class PlayerCharacter : Character
     public Animator characterAnimator;
     public Animator silhouetteAnimator;
 
+    // --------------------------------------------------------- //
+
     public override void TakeDamage(int damage)
     {
-        Invoke(nameof(DamageAnimationFeedback), 1.0f);
+        StartCoroutine(DamageAnimationFeedbackCoroutine(damage));
     }
 
     protected override void VirtualDie()
     {
+        characterSpriteRender.color = Color.red;
+
         base.VirtualDie();
     }
 
@@ -38,12 +42,19 @@ public class PlayerCharacter : Character
         base.ResetAnimation();
     }
 
+    public void CheckHP()
+    {
+        if (!this.isAlive) VirtualDie();
+    }
+
     // --------------------------------------- CORROTINAS --------------------------------------- //
 
-    void DamageAnimationFeedback() // o certo era usar um trigger event no animator pra ativar a anim de dano so no final da anim de ataque mas fodase por enquanto XD
+    IEnumerator DamageAnimationFeedbackCoroutine(int damageAmount) // o certo era usar um trigger event no animator pra ativar a anim de dano so no final da anim de ataque mas fodase por enquanto XD
     {
+        yield return new WaitForSeconds(1.0f);
+
         int finalDamage = 0;
-        finalDamage += damage;
+        finalDamage += damageAmount;
 
         if (isDefending == false)
         {
@@ -80,10 +91,12 @@ public class PlayerCharacter : Character
         spriteTransform.localPosition = originalPosition;
     }
 
+    /*
     IEnumerator DamageFeedbackCoroutine() // para o personagem piscar, mas fodase por enquanto XD
     {
         characterSpriteRender.color = Color.gray;
         yield return new WaitForSeconds(0.15f);
         characterSpriteRender.color = Color.white;
     }
+    */
 }
