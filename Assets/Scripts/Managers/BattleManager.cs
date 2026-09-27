@@ -130,6 +130,13 @@ public class BattleManager : MonoBehaviour
         }        
     }
 
+    [PunRPC] 
+    void ResetCharactersAnimations()
+    {
+        players[0].ResetAnimation();
+        players[1].ResetAnimation();
+    }
+
     [PunRPC]
     void SetPlayerDefense(int playerIndex, bool isDefending)
     {
@@ -201,5 +208,10 @@ public class BattleManager : MonoBehaviour
         Debug.Log("PLAYERS TURN!");
         ChangeGameState(GameState.PlayerTurn);
         OnPlayerTurnStart?.Invoke();
+
+        photonView.RPC(nameof(ResetCharactersAnimations), RpcTarget.All);
+
+        photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 0, false);
+        photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 1, false);
     }
 }

@@ -46,6 +46,13 @@ public class PlayerCharacter : Character
         characterAnimator.SetTrigger("Deffend");
     }
 
+    public override void ResetAnimation()
+    {
+        characterAnimator.Play("Idle", 0, 0f);
+        silhouetteAnimator.Play("Idle", 0, 0f);
+        base.ResetAnimation();
+    }
+
     IEnumerator DefenseFeedbackCoroutine(float duration, float intensity, Transform spriteTransform)
     {
         Vector3 originalPosition = spriteTransform.localPosition;
