@@ -7,6 +7,8 @@ using System.Collections;
 
 public class GameManager : IPersistentSingleton<GameManager>
 {
+    public bool playersWon = false;
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoad;
@@ -37,17 +39,25 @@ public class GameManager : IPersistentSingleton<GameManager>
 
     void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "Menu")
+        {
+            playersWon = false;
+        }
+
         if (scene.name == "Game")
         {
             SetPlayersName();
         }
 
-        if (scene.name == "Defeat")
+        if (scene.name == "GameOver")
         {
-            DefeatScreen defeatScreen = FindAnyObjectByType<DefeatScreen>();
+            GameOverScreen gameOverScreen = FindAnyObjectByType<GameOverScreen>();
 
-            if (PhotonNetwork.IsMasterClient) defeatScreen.ToggleRestartButton(true);
-            else defeatScreen.ToggleRestartButton(false);
+            if (playersWon) gameOverScreen.SetGameOverScreen(true);
+            else gameOverScreen.SetGameOverScreen(false);
+
+            if (PhotonNetwork.IsMasterClient) gameOverScreen.ToggleRestartButton(true);
+            else gameOverScreen.ToggleRestartButton(false);
         }
     }
 
@@ -83,6 +93,6 @@ public class GameManager : IPersistentSingleton<GameManager>
     IEnumerator DefeatCoroutine() // para a musica e toca um acorde sombrio, troca de sena, etc.
     {
         yield return new WaitForSeconds(3.0f);
-        LoadSceneServer("Defeat");
+        LoadSceneServer("GameOver");
     }
 }

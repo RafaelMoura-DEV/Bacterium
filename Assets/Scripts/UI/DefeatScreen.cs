@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class DefeatScreen : MonoBehaviour
 {
+     // DELETE ESSA PORRA DESSE SCRIPT DEPOIS 
+
     [SerializeField] GameObject restartButton;
 
     public void QuitGame()

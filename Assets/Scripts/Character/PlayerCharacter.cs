@@ -19,6 +19,8 @@ public class PlayerCharacter : Character
     protected override void VirtualDie()
     {
         characterSpriteRender.color = Color.red;
+        characterAnimator.speed = 0.0f;
+        silhouetteAnimator.speed = 0.0f;
 
         base.VirtualDie();
     }
@@ -90,13 +92,4 @@ public class PlayerCharacter : Character
 
         spriteTransform.localPosition = originalPosition;
     }
-
-    /*
-    IEnumerator DamageFeedbackCoroutine() // para o personagem piscar, mas fodase por enquanto XD
-    {
-        characterSpriteRender.color = Color.gray;
-        yield return new WaitForSeconds(0.15f);
-        characterSpriteRender.color = Color.white;
-    }
-    */
 }

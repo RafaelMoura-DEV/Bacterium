@@ -64,6 +64,13 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
     }
 
+    public void SetVictory()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        photonView.RPC(nameof(SyncGameManagerWinBool), RpcTarget.All, true);
+        GameManager.Instance.LoadSceneServer("GameOver");
+    }
+
     // --------------------------------- MÉTODOS COMUNS PRIVADOS  --------------------------------- //
 
     void ChooseAction(PlayerAction action)
@@ -100,6 +107,7 @@ public class BattleManager : MonoBehaviour
         if (!players[0].isAlive && !players[1].isAlive)
         {
             OnGameOver?.Invoke(GameOverType.Defeat); // DERROTA
+            photonView.RPC(nameof(SyncGameManagerWinBool), RpcTarget.All, false);
             GameManager.Instance.SetDefeatCoroutine();
         }
     }
@@ -109,6 +117,7 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(ResetCharactersAnimations), RpcTarget.All);
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 0, false);
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 1, false);
+        photonView.RPC(nameof(ResetPlayerBaseStats), RpcTarget.All);
     }
 
     // -------------------------------- MÉTODOS RPC -------------------------------- //
@@ -132,6 +141,12 @@ public class BattleManager : MonoBehaviour
     void SyncGameState(int state) // GERAL  
     {
         CurrentGameState = (GameState)state;
+    }
+
+    [PunRPC]
+    void SyncGameManagerWinBool(bool winBool)
+    {
+        GameManager.Instance.playersWon = winBool;
     }
 
     [PunRPC]
@@ -178,6 +193,16 @@ public class BattleManager : MonoBehaviour
     void SetPlayerDefense(int playerIndex, bool isDefending)
     {
         players[playerIndex].isDefending = isDefending;    
+    }
+
+    [PunRPC]
+    void ResetPlayerBaseStats() // DEPOIS COLOCA ESSES VALORES NO INSPETOR SEU BOSTA
+    {
+        players[0].damage = 15; 
+        players[1].damage = 15;
+
+        players[0].resistence = 25;
+        players[1].resistence = 25;
     }
 
     // BOSS //

@@ -28,7 +28,7 @@ public class DisplayerController : MonoBehaviour
 
     // -------------------------------------------------------------------------------------------------- //
 
-    public void UpdateDisplay(int informationIndex) // Attack = 0; Defense = 1; Fix = 2; Reroll = 3
+    public void UpdateDisplay(int informationIndex) // Attack = 0; Defense = 1; Fix = 2; Reroll = 3; Freeze = 4; CartaDano = 5; CartaResistencia = 6; CartaCura = 7;
     {
         switch (informationIndex)
         {
@@ -41,11 +41,27 @@ public class DisplayerController : MonoBehaviour
                 break;
 
             case 2:
-                displayerText.text = "...";
+                displayerText.text = "Conserte todas as máquinas quebradas.";
                 break;
 
             case 3:
                 displayerText.text = "Troque cartas da sua mão por novas. 1 uso por inimigo.";
+                break;
+
+            case 4:
+                displayerText.text = "Recarregue a arma de gelo gastando sua energia.";
+                break;
+
+            case 5:
+                displayerText.text = "Escolha um jogador para aumentar sua força nesse turno.";
+                break;
+
+            case 6:
+                displayerText.text = "Escolha um jogador para aumentar sua resistência nesse turno.";
+                break;
+
+            case 7:
+                displayerText.text = "Escolha um jogador e cure seus pontos de vida.";
                 break;
         }
     }

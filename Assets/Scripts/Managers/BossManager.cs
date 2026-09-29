@@ -111,8 +111,8 @@ public class BossManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         //UpdateActiveBoss();
-
-        Debug.LogWarning("VICTORY!!!"); // PLAYTEST 1 PROVISORIO
+         
+        battleManager.SetVictory(); // PLAYTEST 1 PROVISORIO
     }
 }
 
