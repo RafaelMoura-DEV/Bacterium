@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
+using System.Collections.Generic;
+using System.Collections;
 
 public class GameManager : IPersistentSingleton<GameManager>
 {
@@ -15,14 +17,37 @@ public class GameManager : IPersistentSingleton<GameManager>
         SceneManager.sceneLoaded -= OnSceneLoad;
     }
 
+    public void LoadSceneLocal(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void LoadSceneServer(string sceneName)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(sceneName);
+        }
+    }
+
+    public string GetCurrentSceneName()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+
     void OnSceneLoad(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Game")
         {
-            //GameObject self = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-            //self.name = PhotonConnection.Instance.nickName + " - PHOTONCONTROLLER";
-
             SetPlayersName();
+        }
+
+        if (scene.name == "Defeat")
+        {
+            DefeatScreen defeatScreen = FindAnyObjectByType<DefeatScreen>();
+
+            if (PhotonNetwork.IsMasterClient) defeatScreen.ToggleRestartButton(true);
+            else defeatScreen.ToggleRestartButton(false);
         }
     }
 
@@ -50,5 +75,14 @@ public class GameManager : IPersistentSingleton<GameManager>
         }
     }
 
+    public void SetDefeatCoroutine()
+    {
+        StartCoroutine(DefeatCoroutine());
+    }
 
+    IEnumerator DefeatCoroutine() // para a musica e toca um acorde sombrio, troca de sena, etc.
+    {
+        yield return new WaitForSeconds(3.0f);
+        LoadSceneServer("Defeat");
+    }
 }

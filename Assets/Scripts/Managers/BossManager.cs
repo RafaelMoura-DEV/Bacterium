@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
@@ -21,10 +23,7 @@ public class BossManager : MonoBehaviour
     {
         battleManager = FindAnyObjectByType<BattleManager>();
         bossCharacter = GetComponent<EnemyCharacter>();
-    }
 
-    private void Start()
-    {       
         UpdateActiveBoss();
     }
 
@@ -47,6 +46,8 @@ public class BossManager : MonoBehaviour
         SpriteRenderer spriteRenderer = bossesObj[currentBossIndex].GetComponent<SpriteRenderer>();
 
         activeBoss = new Boss(bossesObj[currentBossIndex], spriteRenderer, animator, animator1);
+
+        if (!activeBoss.bossSpriteRenderer.gameObject.activeSelf) activeBoss.bossSpriteRenderer.gameObject.SetActive(true);
     }
 
     void ChooseAttack()
@@ -76,6 +77,42 @@ public class BossManager : MonoBehaviour
         else if (!playerTwo.isAlive) target = playerOne;
 
         battleManager.AttackPlayer(target, bossCharacter.damage);
+    }
+
+    public void Die()
+    {
+        activeBoss.bossAnimator.speed = 0.0f;
+        StartCoroutine(DieCoroutine());
+    }
+
+    IEnumerator DieCoroutine()
+    {
+        yield return new WaitForSeconds(0.35f);
+
+        Color color = activeBoss.bossSpriteRenderer.color;
+        float startAlpha = color.a;
+        float elapsed = 0f;
+
+        while (elapsed < 1.0f)
+        {
+            elapsed += Time.deltaTime;
+
+            float alpha = Mathf.Lerp(startAlpha, 0f, elapsed / 1.0f);
+
+            color.a = alpha;
+            activeBoss.bossSpriteRenderer.color = color;
+
+            yield return null;
+        }
+
+        color.a = 0f;
+        activeBoss.bossSpriteRenderer.color = color;
+
+        yield return new WaitForSeconds(2.0f);
+
+        //UpdateActiveBoss();
+
+        Debug.LogWarning("VICTORY!!!"); // PLAYTEST 1 PROVISORIO
     }
 }
 

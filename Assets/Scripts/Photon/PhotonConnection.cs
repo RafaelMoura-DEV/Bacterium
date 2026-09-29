@@ -75,12 +75,10 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, null);
     }
 
-    public void EnterGameScene()
+    public void LeaveRoom()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel("Game");    
-        }
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
     }
 
     public bool IsMasterClient()
@@ -102,6 +100,11 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
         if (uIManager != null) uIManager.OpenWaitingPanel(PhotonNetwork.IsMasterClient);
     }
 
+    public override void OnLeftRoom()
+    {
+        GameManager.Instance.LoadSceneLocal("Menu");
+    }
+
     //-------------------------------------------------------------------------
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -112,6 +115,12 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     //-------------------------------------------------------------------------
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
+        if (GameManager.Instance.GetCurrentSceneName() == "Game")
+        {
+            GameManager.Instance.LoadSceneLocal("Menu");
+            LeaveRoom();
+        }
+        
         Debug.Log("Player left room: " + otherPlayer.NickName);
     }
 

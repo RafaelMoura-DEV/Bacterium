@@ -150,7 +150,9 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        photonConnection.EnterGameScene();
+        //photonConnection.EnterGameScene();
+
+        GameManager.Instance.LoadSceneServer("Game");
     }
 
     public void LeaveRoom()

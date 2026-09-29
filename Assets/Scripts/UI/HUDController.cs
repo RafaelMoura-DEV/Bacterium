@@ -14,12 +14,14 @@ public class HUDController : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI firstPlayerName;
     [SerializeField] TextMeshProUGUI secondPlayerName;
-    [SerializeField] TextMeshProUGUI deadText; // da pra usar tbm para debuffs temporarios futuramente
+    [SerializeField] TextMeshProUGUI localFeedbackText; // msg de morte, game over, debuffs, etc.
 
     [SerializeField] GameObject buttonFirstPlayer; // referencia do behaviour first player
     [SerializeField] GameObject buttonSecondPlayer; // referencia do behaviour second player
 
-    private bool isClientOnGame = true;
+    [SerializeField] GameObject quitGamePanel;
+
+    private bool isClientOnGame = true; // pra saber se o player esta morto ou impedido de jogar
 
     // ------------------------------------------------------------------------------------------------- //
 
@@ -43,6 +45,7 @@ public class HUDController : MonoBehaviour
         battleManager.OnPlayerTurnStart += ShowCardsHolder;
         battleManager.OnPlayerTurnEnd += HidePanelOnEndTurn;
         battleManager.OnPlayerTurnEnd += HideCardsHolder;
+        battleManager.OnGameOver += DisplayGameOverText;
     }
 
     private void OnDisable()
@@ -50,6 +53,7 @@ public class HUDController : MonoBehaviour
         battleManager.OnPlayerTurnStart -= ShowCardsHolder;
         battleManager.OnPlayerTurnEnd -= HidePanelOnEndTurn;
         battleManager.OnPlayerTurnEnd -= HideCardsHolder;
+        battleManager.OnGameOver -= DisplayGameOverText;
     }
 
     // ------------------------------------------------------------------------------------------------- //
@@ -127,7 +131,7 @@ public class HUDController : MonoBehaviour
     public void DisplayDieFeedback()
     {
         isClientOnGame = false;
-        deadText.text = "VOCÊ FOI MORTO...";
+        localFeedbackText.text = "VOCÊ FOI MORTO...";
         HideCardsHolder();
     }
 
@@ -147,5 +151,29 @@ public class HUDController : MonoBehaviour
     {
         if (!isClientOnGame) return;
         cardsHolder.SetActive(true);
+    }
+
+    void DisplayGameOverText(BattleManager.GameOverType gameOverType)
+    {
+        if (gameOverType == BattleManager.GameOverType.Defeat)
+        {
+            localFeedbackText.text = "DERROTA";
+        }
+
+        else
+        {
+
+        }
+    }
+
+    public void ToggleQuitPanel(bool openBool)
+    {
+        quitGamePanel.SetActive(openBool);  
+    }
+
+    public void QuitGame()
+    {
+        GameManager.Instance.LoadSceneLocal("Menu");
+        PhotonConnection.Instance.LeaveRoom();
     }
 }

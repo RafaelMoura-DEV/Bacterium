@@ -16,35 +16,37 @@ public class InterludeUI : MonoBehaviour
     private void OnEnable()
     {
         battleManager.OnEnemyTurnStart += HidePanel;
-        battleManager.OnEnemyTurnStart += HidePanel;
+        battleManager.OnPlayerTurnStart += HidePanel;
 
-        battleManager.OnPlayerTurnEnd += ShowPanel;
-        battleManager.OnPlayerTurnEnd += ShowPanel;
+        battleManager.OnEnemyTurnEnd += ShowPanelPlayers;
+        battleManager.OnPlayerTurnEnd += ShowPanelBoss;
     }
 
     private void OnDisable()
     {
         battleManager.OnEnemyTurnStart -= HidePanel;
-        battleManager.OnEnemyTurnStart = HidePanel;
+        battleManager.OnPlayerTurnStart -= HidePanel;
 
-        battleManager.OnPlayerTurnEnd -= ShowPanel;
-        battleManager.OnPlayerTurnEnd -= ShowPanel;
+        battleManager.OnEnemyTurnEnd -= ShowPanelPlayers;
+        battleManager.OnPlayerTurnEnd -= ShowPanelBoss;
     }
 
     // -------------------------------------------------------------- //
 
-
-    // N SEI PQ MAS N TA CHAMANDO QUANDO O BOSS PASSA O TURNO. E TA CHAMANDO 2 VEZES
-
-    void ShowPanel()
+    void ShowPanelBoss()
     {
-        //Debug.LogWarning("SHOW");
         interludePanel.SetActive(true);
+        interludeText.text = "TURNO DO INIMIGO";
+    }
+
+    void ShowPanelPlayers()
+    {
+        interludePanel.SetActive(true);
+        interludeText.text = "O INIMIGO ATACOU"; // depois colocar o feedback definitivo
     }
 
     void HidePanel()
     {
-        //Debug.LogWarning("HIDE");
         interludePanel.SetActive(false);
-    }
+    }  
 }
