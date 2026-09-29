@@ -25,6 +25,7 @@ public class Card : MonoBehaviour
         if (deckController.energy < energyCost)
         {
             Debug.LogWarning("ENERGIA INSUFICIENTE");
+            // som de denied
         }
 
         else

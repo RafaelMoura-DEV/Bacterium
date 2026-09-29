@@ -1,15 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
+using Photon.Pun;
 
 public class CardDeckController : MonoBehaviour
 {
     BattleManager battleManager;
 
     public int energy = 5;
+    public bool isEnergyMachineBroken = false;
+    [SerializeField] TextMeshProUGUI energyText;
 
     public Card[] cards; // futuramente, toda a logica do deck de cartas estara aqui
-    public Card selectedCard = null;
+    [HideInInspector] public Card selectedCard = null;
 
     [SerializeField] GameObject overlayPanel; // sprite
     [SerializeField] GameObject overlyText; // UI
@@ -58,34 +62,30 @@ public class CardDeckController : MonoBehaviour
     {
         if (selectedCard != null)
         {
-            GameObject clickedObject = EventSystem.current.currentSelectedGameObject;    
+            GameObject clickedObject = EventSystem.current.currentSelectedGameObject;
             PlayerCharacter playerCharacter = clickedObject.GetComponent<PlayerCharacter>();
 
-            switch (selectedCard.cardType)
-            {
-                case Card.CardType.DamageBuff:
+            PhotonView targetView = playerCharacter.GetComponent<PhotonView>();
 
-                    int totalDamage = playerCharacter.damage;
-                    totalDamage = Mathf.RoundToInt(totalDamage * (1f + selectedCard.damageBuff / 100f));
+            int targetViewID = targetView.ViewID;
 
-                    playerCharacter.damage = totalDamage;
-                    break;
-
-                case Card.CardType.ResistenceBuff:
-                    playerCharacter.resistence += selectedCard.resistenceBuff;
-                    break;
-
-                case Card.CardType.Heal:
-                    playerCharacter.currentHealth += selectedCard.heal;
-                    break;
-            }
+            battleManager.ApplyCardEffect(targetViewID, selectedCard.cardType, selectedCard.damageBuff, selectedCard.resistenceBuff, selectedCard.heal);
 
             ResetCardsFeedback();
             HideOverlay();
+
+            UpdateEnergy(-selectedCard.energyCost);
+            selectedCard = null;
         }
     }
 
     // --------------------------------------------------------------------------- //
+
+    public void UpdateEnergy(int amount) // futuramente para as cartas de energia e debuffs de ataques tambem
+    {
+        energy += amount;
+        energyText.text = energy.ToString();
+    }
 
     void ResetCardsFeedback()
     {

@@ -59,6 +59,8 @@ MonoBehaviour:
   - SetIndexPlaytest
   - SyncGameManagerWinBool
   - ResetPlayerBaseStats
+  - ApplyCardEffectRPC
+  - SyncPlayerStatsRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -118,6 +118,9 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 0, false);
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 1, false);
         photonView.RPC(nameof(ResetPlayerBaseStats), RpcTarget.All);
+
+        CardDeckController cardDeckController = FindAnyObjectByType<CardDeckController>();
+        if (cardDeckController.energy < 5 && !cardDeckController.isEnergyMachineBroken) cardDeckController.UpdateEnergy(1); 
     }
 
     // -------------------------------- MÉTODOS RPC -------------------------------- //
@@ -157,6 +160,16 @@ public class BattleManager : MonoBehaviour
         Character target = targetView.GetComponent<Character>();
 
         target.TakeDamage(damage);
+    }
+
+    [PunRPC]
+    void ApplyHealing(int targetViewID, int heal) // PLAYER E BOSS USAM
+    {
+        PhotonView targetView = PhotonView.Find(targetViewID);
+
+        Character target = targetView.GetComponent<Character>();
+
+        target.Heal(heal);
     }
 
     [PunRPC]
@@ -223,6 +236,69 @@ public class BattleManager : MonoBehaviour
     void ResolveBossTurn()
     {
         StartCoroutine(PassTurnToPlayersCoroutine());
+    }
+
+    // ----------------------------- LOGICA DAS CARTAS ----------------------------- // 
+
+    public void ApplyCardEffect(int targetViewID, Card.CardType cardType, int damageBuff, int resistenceBuff, int heal)
+    {
+        photonView.RPC(nameof(ApplyCardEffectRPC), PhotonNetwork.MasterClient, targetViewID, (int)cardType, damageBuff, resistenceBuff, heal);
+    }
+
+    [PunRPC]
+    void ApplyCardEffectRPC(int targetViewID, int cardType, int damageBuff, int resistenceBuff, int heal)
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        PhotonView targetView = PhotonView.Find(targetViewID);
+        PlayerCharacter player = targetView.GetComponent<PlayerCharacter>();
+
+        Card.CardType type = (Card.CardType)cardType;
+
+        switch (type)
+        {
+            case Card.CardType.DamageBuff:
+
+                player.damage = Mathf.RoundToInt(player.damage * (1f + damageBuff / 100f));
+                break;
+
+            case Card.CardType.ResistenceBuff:
+
+                player.resistence += resistenceBuff;
+                break;
+
+            case Card.CardType.Heal:
+
+                if (player.currentHealth < player.maxHealth)
+                {
+                    photonView.RPC(nameof(ApplyHealing), RpcTarget.All, targetViewID, heal);
+                }
+                break;
+        }
+
+        SyncPlayerStats(player);
+    }
+
+    void SyncPlayerStats(PlayerCharacter player)
+    {
+        PhotonView playerView = player.GetComponent<PhotonView>();
+
+        photonView.RPC(nameof(SyncPlayerStatsRPC), RpcTarget.All, playerView.ViewID, player.damage, player.resistence, player.currentHealth
+        );
+    }
+
+    [PunRPC]
+    void SyncPlayerStatsRPC(int playerViewID, int damage, int resistence, int currentHealth)
+    {
+        PhotonView playerView = PhotonView.Find(playerViewID);
+
+        if (playerView == null) return;
+
+        PlayerCharacter player = playerView.GetComponent<PlayerCharacter>();
+
+        player.damage = damage;
+        player.resistence = resistence;
+        player.currentHealth = currentHealth;
     }
 
     // ---------------------------- CORROTINAS ------------------------------------ //

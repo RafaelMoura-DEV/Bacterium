@@ -16,6 +16,11 @@ public class PlayerCharacter : Character
         StartCoroutine(DamageAnimationFeedbackCoroutine(damage));
     }
 
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+    }
+
     protected override void VirtualDie()
     {
         characterSpriteRender.color = Color.red;

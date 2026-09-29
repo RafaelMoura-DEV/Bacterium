@@ -61,7 +61,7 @@ public class DisplayerController : MonoBehaviour
                 break;
 
             case 7:
-                displayerText.text = "Escolha um jogador e cure seus pontos de vida.";
+                displayerText.text = "Escolha um jogador e cure sua vida. Não adiciona vida extra.";
                 break;
         }
     }

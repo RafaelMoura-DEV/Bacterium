@@ -17,6 +17,11 @@ public class EnemyCharacter : Character
         base.TakeDamage(damage);
     }
 
+    public override void Heal(int amount)
+    {
+        base.Heal(amount);
+    }
+
     protected override void VirtualDie()
     {
         base.VirtualDie();
