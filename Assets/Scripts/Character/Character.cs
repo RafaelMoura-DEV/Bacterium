@@ -16,6 +16,7 @@ public class Character : MonoBehaviour
         GetComponent<HealthBarController>().UpdateHealthBar();
 
         if (currentHealth <= 0) isAlive = false; // o metodo die so vai ser chamado ao finalizar o turno, nao quando a vida cair em 0
+        if (currentHealth < 0) currentHealth = 0;
     }
 
     public virtual void Heal(int amount)

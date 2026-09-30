@@ -65,6 +65,8 @@ public class CardDeckController : MonoBehaviour
             GameObject clickedObject = EventSystem.current.currentSelectedGameObject;
             PlayerCharacter playerCharacter = clickedObject.GetComponent<PlayerCharacter>();
 
+            if (!playerCharacter.isAlive) return;
+
             PhotonView targetView = playerCharacter.GetComponent<PhotonView>();
 
             int targetViewID = targetView.ViewID;

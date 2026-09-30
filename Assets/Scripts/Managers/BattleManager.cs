@@ -249,7 +249,7 @@ public class BattleManager : MonoBehaviour
     void ApplyCardEffectRPC(int targetViewID, int cardType, int damageBuff, int resistenceBuff, int heal)
     {
         if (!PhotonNetwork.IsMasterClient) return;
-
+        
         PhotonView targetView = PhotonView.Find(targetViewID);
         PlayerCharacter player = targetView.GetComponent<PlayerCharacter>();
 

@@ -23,10 +23,8 @@ public class PlayerCharacter : Character
 
     protected override void VirtualDie()
     {
-        characterSpriteRender.color = Color.red;
-        characterAnimator.speed = 0.0f;
-        silhouetteAnimator.speed = 0.0f;
-
+        characterAnimator.SetTrigger("Die");
+        silhouetteAnimator.gameObject.SetActive(false);
         base.VirtualDie();
     }
 
@@ -44,6 +42,8 @@ public class PlayerCharacter : Character
 
     public override void ResetAnimation()
     {
+        if (this.currentHealth <= 0) return;
+
         characterAnimator.Play("Idle", 0, 0f);
         silhouetteAnimator.Play("Idle", 0, 0f);
         base.ResetAnimation();
