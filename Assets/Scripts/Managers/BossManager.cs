@@ -76,7 +76,7 @@ public class BossManager : MonoBehaviour
 
         else if (!playerTwo.isAlive) target = playerOne;
 
-        battleManager.AttackPlayer(target, bossCharacter.damage);
+        battleManager.AttackPlayer(target, bossCharacter.damage, "INIMIGO ATACOU!", 30);
     }
 
     public void Die()

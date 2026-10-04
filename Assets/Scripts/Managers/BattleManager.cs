@@ -6,6 +6,8 @@ using System.Collections;
 
 public class BattleManager : MonoBehaviour
 {
+    FeedbackManager feedbackManager;
+
     PhotonView photonView;
 
     public float interludeTime = 4.0f;
@@ -37,7 +39,7 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         photonView = GetComponent<PhotonView>();
-
+        feedbackManager = FindAnyObjectByType<FeedbackManager>();
     }
 
     // --------------------------------- MÉTODOS COMUNS PÚBLICOS  --------------------------------- //
@@ -56,12 +58,14 @@ public class BattleManager : MonoBehaviour
 
     // BOSS //
 
-    public void AttackPlayer(PlayerCharacter target, int damage)
+    public void AttackPlayer(PlayerCharacter target, int damage, string interludeMessage, int interludeFontSize)
     {
         int targetViewID = target.GetComponent<PhotonView>().ViewID;
         photonView.RPC(nameof(ApplyDamage), RpcTarget.All, targetViewID, damage);
         photonView.RPC(nameof(SetBossActionFeedback), RpcTarget.All);
         photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
+
+        feedbackManager.SetInterludePanel(true, interludeMessage, interludeFontSize);
     }
 
     public void SetVictory()
@@ -340,13 +344,15 @@ public class BattleManager : MonoBehaviour
         if (boss.isAlive)
         {
             Debug.Log("BOSS TURN!");
+
+            feedbackManager.SetInterludePanel(true, "TURNO DO INIMIGO", 40);
+
             ChangeGameState(GameState.BossTurn);
             OnEnemyTurnStart?.Invoke();
         }
 
         else
-        {
-            
+        {        
             photonView.RPC(nameof(SetBossDeath), RpcTarget.All);
             StartCoroutine(nameof(SwitchBossCoroutine));
         }
@@ -365,6 +371,9 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(interludeTime); // tempo entre os turnos para mensagens na hud e oq precisar  
 
         Debug.Log("PLAYERS TURN!");
+
+        feedbackManager.SetInterludePanel(false, "", 40);
+
         ChangeGameState(GameState.PlayerTurn);
         OnPlayerTurnStart?.Invoke();
 
