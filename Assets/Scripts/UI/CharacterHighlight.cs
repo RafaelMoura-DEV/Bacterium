@@ -32,7 +32,7 @@ public class CharacterHighlight : MonoBehaviour
 
         else
         {
-            if (currentBossSilhouette == null) currentBossSilhouette = bossSilhouettes[bossManager.currentBossIndex];
+            if (currentBossSilhouette != bossSilhouettes[bossManager.currentBossIndex]) currentBossSilhouette = bossSilhouettes[bossManager.currentBossIndex];
             currentBossSilhouette.color = new Vector4(currentBossSilhouette.color.r, currentBossSilhouette.color.g, currentBossSilhouette.color.b, 0.1f);
         }
 

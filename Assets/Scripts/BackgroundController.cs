@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
-public class BackgroundSpriteLight : MonoBehaviour
+public class BackgroundController : MonoBehaviour
 {
     [SerializeField] Sprite lightsOffBackgorund;
     [SerializeField] Sprite lighsOnBackground;

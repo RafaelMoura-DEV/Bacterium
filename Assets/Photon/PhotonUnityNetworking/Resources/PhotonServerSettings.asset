@@ -63,6 +63,9 @@ MonoBehaviour:
   - SyncPlayerStatsRPC
   - ApplyHealing
   - SyncInterludePanel
+  - UpdateBoss
+  - SyncActiveBoss
+  - CallAttackEvent
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -45,7 +45,6 @@ public class HUDController : MonoBehaviour
         battleManager.OnPlayerTurnStart += ShowCardsHolder;
         battleManager.OnPlayerTurnEnd += HidePanelOnEndTurn;
         battleManager.OnPlayerTurnEnd += HideCardsHolder;
-        battleManager.OnGameOver += DisplayGameOverText;
     }
 
     private void OnDisable()
@@ -53,7 +52,6 @@ public class HUDController : MonoBehaviour
         battleManager.OnPlayerTurnStart -= ShowCardsHolder;
         battleManager.OnPlayerTurnEnd -= HidePanelOnEndTurn;
         battleManager.OnPlayerTurnEnd -= HideCardsHolder;
-        battleManager.OnGameOver -= DisplayGameOverText;
     }
 
     // ------------------------------------------------------------------------------------------------- //
@@ -151,19 +149,6 @@ public class HUDController : MonoBehaviour
     {
         if (!isClientOnGame) return;
         cardsHolder.SetActive(true);
-    }
-
-    void DisplayGameOverText(BattleManager.GameOverType gameOverType)
-    {
-        if (gameOverType == BattleManager.GameOverType.Defeat)
-        {
-            localFeedbackText.text = "DERROTA";
-        }
-
-        else
-        {
-
-        }
     }
 
     public void ToggleQuitPanel(bool openBool)

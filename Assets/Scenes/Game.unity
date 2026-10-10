@@ -1399,9 +1399,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 200829026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a34c960a9c4f674e8d2e5b7558f4d5c, type: 3}
+  m_Script: {fileID: 11500000, guid: a2bf6e3c371acda44ad2c33a8ce84b64, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BackgroundSpriteLight
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundController
   lightsOffBackgorund: {fileID: 21300000, guid: 02d2265c0ce08db458fdfffb055b215d, type: 3}
   lighsOnBackground: {fileID: 21300000, guid: f4d2aeaafa2cfe54285392febb7eac42, type: 3}
 --- !u!1 &203951913
@@ -7851,7 +7851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1386066136
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9081,6 +9081,28 @@ MonoBehaviour:
   - {fileID: 1908378692}
   - {fileID: 1266234817}
   - {fileID: 149461307}
+  bossesStats:
+  - bossName: KRAKA
+    bossCurrentHealth: 20
+    bossMaxHealth: 20
+    bossResistence: 0
+    bossDamage: 200
+    firstAttack: 0
+    secondAttack: 1
+  - bossName: OTROVA
+    bossCurrentHealth: 25
+    bossMaxHealth: 25
+    bossResistence: 0
+    bossDamage: 35
+    firstAttack: 2
+    secondAttack: 3
+  - bossName: GOLYAM
+    bossCurrentHealth: 27
+    bossMaxHealth: 27
+    bossResistence: 0
+    bossDamage: 60
+    firstAttack: 4
+    secondAttack: 5
   playerOne: {fileID: 520224944}
   playerTwo: {fileID: 1466975265}
 --- !u!114 &1651790965
@@ -9095,11 +9117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442184b7ef37d9e498a55912334c7f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCharacter
-  characterName: Safadao
-  currentHealth: 160
-  maxHealth: 160
+  characterName: 
+  currentHealth: 0
+  maxHealth: 0
   resistence: 0
-  damage: 50
+  damage: 0
   isAlive: 1
 --- !u!114 &1651790966
 MonoBehaviour:
@@ -10595,6 +10617,7 @@ GameObject:
   - component: {fileID: 1984953273}
   - component: {fileID: 1984953272}
   - component: {fileID: 1984953271}
+  - component: {fileID: 1984953274}
   m_Layer: 0
   m_Name: FeedbackManager
   m_TagString: Untagged
@@ -10651,6 +10674,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1984953274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984953270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffb7c9f77cfd95640bf530f6f53c8b74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LockUI
+  lockImagePrefab: {fileID: 6106193711298141239, guid: bfef146ed340b3546b6d76266485552b, type: 3}
 --- !u!1 &1989354761
 GameObject:
   m_ObjectHideFlags: 0
@@ -10833,7 +10869,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2029632873
 RectTransform:
   m_ObjectHideFlags: 0

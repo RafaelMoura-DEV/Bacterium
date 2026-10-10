@@ -4,7 +4,6 @@ using Photon.Pun;
 public class FeedbackManager : MonoBehaviour // controla todo feedback RPC, como painel de interludio, particulas, VFXs, etc.
 {
     PhotonView photonView;
-
     InterludeUI interludeUI;
 
     private void Start()

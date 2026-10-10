@@ -102,11 +102,13 @@ public class BattleManager : MonoBehaviour
 
         int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
 
-        if (!players[actorNumber - 1].isAlive && actorNumber == PhotonNetwork.LocalPlayer.ActorNumber )
+        if (!players[actorNumber - 1].isAlive && actorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
         {
             HUDController hUDController = FindAnyObjectByType<HUDController>();
             if (hUDController != null) hUDController.DisplayDieFeedback();
         }
+
+        if (!PhotonNetwork.IsMasterClient) return; // feedback os 2 chamam e troca de cena so o master
 
         if (!players[0].isAlive && !players[1].isAlive)
         {
@@ -118,6 +120,8 @@ public class BattleManager : MonoBehaviour
 
     void ResetPlayers()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         photonView.RPC(nameof(ResetCharactersAnimations), RpcTarget.All);
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 0, false);
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 1, false);
@@ -287,8 +291,7 @@ public class BattleManager : MonoBehaviour
     {
         PhotonView playerView = player.GetComponent<PhotonView>();
 
-        photonView.RPC(nameof(SyncPlayerStatsRPC), RpcTarget.All, playerView.ViewID, player.damage, player.resistence, player.currentHealth
-        );
+        photonView.RPC(nameof(SyncPlayerStatsRPC), RpcTarget.All, playerView.ViewID, player.damage, player.resistence, player.currentHealth);
     }
 
     [PunRPC]
@@ -352,7 +355,8 @@ public class BattleManager : MonoBehaviour
         }
 
         else
-        {        
+        {
+            feedbackManager.SetInterludePanel(true, "INIMIGO FOI MORTO!", 40);
             photonView.RPC(nameof(SetBossDeath), RpcTarget.All);
             StartCoroutine(nameof(SwitchBossCoroutine));
         }
@@ -380,9 +384,14 @@ public class BattleManager : MonoBehaviour
         ResetPlayers();
     }
 
-    IEnumerator SwitchBossCoroutine()
+    IEnumerator SwitchBossCoroutine() // trocar de cenario e os krl
     {
+        yield return new WaitForSeconds(3.35f);
+        feedbackManager.SetInterludePanel(true, "UM NOVO INIMIGO SURGIU!", 40);
+
         yield return new WaitForSeconds(6.5f);
+
+        feedbackManager.SetInterludePanel(false, "", 40);
 
         ChangeGameState(GameState.PlayerTurn);
         OnPlayerTurnStart?.Invoke();

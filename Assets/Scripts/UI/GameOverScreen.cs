@@ -7,23 +7,13 @@ public class GameOverScreen : MonoBehaviour
     [SerializeField] GameObject victoryScreen;
     [SerializeField] GameObject defeatScreen;
 
-    [SerializeField] TextMeshProUGUI gameOverText;
-
     [SerializeField] GameObject restartButton;
 
     public void SetGameOverScreen(bool victoryBool)
     {
-        if (victoryBool)
-        {
-            victoryScreen.SetActive(true);
-            gameOverText.text = "VITÓRIA";
-        }
+        if (victoryBool) victoryScreen.SetActive(true);
 
-        else
-        {
-            defeatScreen.SetActive(true);
-            gameOverText.text = "DERROTA";
-        }
+        else defeatScreen.SetActive(true);
     }
 
     public void QuitGame()
