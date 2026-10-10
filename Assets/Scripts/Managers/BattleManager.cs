@@ -58,10 +58,11 @@ public class BattleManager : MonoBehaviour
 
     // BOSS //
 
-    public void AttackPlayer(PlayerCharacter target, int damage, string interludeMessage, int interludeFontSize)
+    public void AttackPlayer(PlayerCharacter target, int damage, string interludeMessage, int interludeFontSize, Character.CharacterEffect effect)
     {
         int targetViewID = target.GetComponent<PhotonView>().ViewID;
         photonView.RPC(nameof(ApplyDamage), RpcTarget.All, targetViewID, damage);
+        photonView.RPC(nameof(ApplyEffect), RpcTarget.All, targetViewID, (int)effect);
         photonView.RPC(nameof(SetBossActionFeedback), RpcTarget.All);
         photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
 
@@ -108,8 +109,6 @@ public class BattleManager : MonoBehaviour
             if (hUDController != null) hUDController.DisplayDieFeedback();
         }
 
-        if (!PhotonNetwork.IsMasterClient) return; // feedback os 2 chamam e troca de cena so o master
-
         if (!players[0].isAlive && !players[1].isAlive)
         {
             OnGameOver?.Invoke(GameOverType.Defeat); // DERROTA
@@ -120,8 +119,6 @@ public class BattleManager : MonoBehaviour
 
     void ResetPlayers()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
         photonView.RPC(nameof(ResetCharactersAnimations), RpcTarget.All);
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 0, false);
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 1, false);
@@ -168,6 +165,16 @@ public class BattleManager : MonoBehaviour
         Character target = targetView.GetComponent<Character>();
 
         target.TakeDamage(damage);
+    }
+
+    [PunRPC]
+    void ApplyEffect(int targetViewID, int effect)
+    {
+        PhotonView targetView = PhotonView.Find(targetViewID);
+
+        Character target = targetView.GetComponent<Character>();
+
+        target.currentEffect = (Character.CharacterEffect)effect;
     }
 
     [PunRPC]
@@ -224,6 +231,13 @@ public class BattleManager : MonoBehaviour
 
         players[0].resistence = 25;
         players[1].resistence = 25;
+    }
+
+    [PunRPC]
+    void ResetPlayerEffects()
+    {
+        players[0].currentEffect = Character.CharacterEffect.None;
+        players[1].currentEffect = Character.CharacterEffect.None;
     }
 
     // BOSS //
@@ -340,6 +354,8 @@ public class BattleManager : MonoBehaviour
     {
         OnPlayerTurnEnd?.Invoke();
         ChangeGameState(GameState.Interlude);
+
+        photonView.RPC(nameof(ResetPlayerEffects), RpcTarget.All);
 
         Debug.Log("INTERLUDE...");
         yield return new WaitForSeconds(interludeTime); // tempo entre os turnos para mensagens na hud e oq precisar

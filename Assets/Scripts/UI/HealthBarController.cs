@@ -11,6 +11,11 @@ public class HealthBarController : MonoBehaviour
     {
         character = GetComponent<Character>();
 
+        SetMaxValue();
+    }
+
+    public void SetMaxValue()
+    {
         healthBar.maxValue = character.maxHealth;
         healthBar.value = character.currentHealth;
     }

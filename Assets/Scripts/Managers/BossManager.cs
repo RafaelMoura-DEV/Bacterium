@@ -12,7 +12,7 @@ public class BossManager : MonoBehaviour
 
     public int currentBossIndex = 0;
 
-    public enum BossAttacks { NoDefense, NoAttack, NoCards, EnergyDrain, LifeSteal, Berserk };
+    public enum BossAttacks { NoDefense, NoAttack, NoCards, EnergyDrain, LifeSteal, Berserk, Default };
 
     [SerializeField] GameObject[] bossesObj;
     [SerializeField] BossStats[] bossesStats;
@@ -74,7 +74,6 @@ public class BossManager : MonoBehaviour
 
     void Attack()
     {
-
         PlayerCharacter target = null;
 
         if (playerOne.isDefending && !playerTwo.isDefending) target = playerOne;
@@ -93,7 +92,7 @@ public class BossManager : MonoBehaviour
 
         else if (!playerTwo.isAlive) target = playerOne;
 
-        battleManager.AttackPlayer(target, bossCharacter.damage, "INIMIGO ATACOU: " + target.characterName, 30);
+        battleManager.AttackPlayer(target, bossCharacter.damage, "INIMIGO ATACOU: " + target.characterName, 30, Character.CharacterEffect.CantUseCards); // TESTE DE LOGICA DO EFEITO
 
         int targetActorNumber = CheckWhoIsTheTarget(target);
         Player targetPlayer = PhotonNetwork.CurrentRoom.GetPlayer(targetActorNumber);
@@ -167,6 +166,7 @@ public class BossManager : MonoBehaviour
         else
         {
             UpdateActiveBoss();
+            GetComponent<HealthBarController>().SetMaxValue();
             GetComponent<HealthBarController>().UpdateHealthBar();
         }         
     }
@@ -174,7 +174,7 @@ public class BossManager : MonoBehaviour
     [PunRPC]
     void CallAttackEvent()
     {
-        OnBossAttack?.Invoke(BossAttacks.NoDefense);
+        OnBossAttack?.Invoke(BossAttacks.NoCards); // TESTE DE LOGICA
     }
 }
 

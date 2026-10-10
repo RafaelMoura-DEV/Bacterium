@@ -124,6 +124,25 @@ public class HUDController : MonoBehaviour
         infoPanelTexts[1].text = "VIDA: " + character.currentHealth.ToString() + "/" + character.maxHealth.ToString();
         infoPanelTexts[2].text = "FORÇA: " + character.damage.ToString();
         infoPanelTexts[3].text = "RESISTÊNCIA: " + character.resistence + "%";
+
+        switch (character.currentEffect)
+        {
+            case Character.CharacterEffect.None:
+                infoPanelTexts[4].text = "";
+                break;
+
+            case Character.CharacterEffect.CantAttack:
+                infoPanelTexts[4].text = "Esse jogador não pode atacar durante esse turno.";
+                break;
+
+            case Character.CharacterEffect.CantDeffend:
+                infoPanelTexts[4].text = "Esse jogador não pode defender durante esse turno.";
+                break;
+
+            case Character.CharacterEffect.CantUseCards:
+                infoPanelTexts[4].text = "Esse jogador não pode usar cartas durante esse turno.";
+                break;
+        }
     }
 
     public void DisplayDieFeedback()

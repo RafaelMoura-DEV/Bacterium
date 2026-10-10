@@ -9,6 +9,9 @@ public class Character : MonoBehaviour
     public int damage;
     public bool isAlive = true; // se acabar o turno e a bool for falsa, chama o metodo Die
 
+    public enum CharacterEffect { CantAttack, CantDeffend, CantUseCards, Berserk, None }; // status extra 
+    public CharacterEffect currentEffect = CharacterEffect.None;
+
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
