@@ -30,8 +30,10 @@ public class LockUI : MonoBehaviour
 
     void InstantiateLockPrefab(BossManager.BossAttacks bossAttack)
     {
-        if (bossAttack == BossManager.BossAttacks.EnergyDrain || bossAttack == BossManager.BossAttacks.Default 
-        || bossAttack == BossManager.BossAttacks.Berserk || bossAttack == BossManager.BossAttacks.LifeSteal) return;
+        Debug.LogWarning(bossAttack.ToString());
+
+        if (bossAttack == BossManager.BossAttacks.EnergyDrain || bossAttack == BossManager.BossAttacks.Critical 
+        || bossAttack == BossManager.BossAttacks.Berserk || bossAttack == BossManager.BossAttacks.LifeSteal || bossAttack == BossManager.BossAttacks.ColetiveEnergyDrain) return;
 
         RectTransform lockImage = Instantiate(lockImagePrefab, abilityLockHolderTransform).GetComponent<Image>().GetComponent<RectTransform>();
         instantiatedLock = lockImage.gameObject;

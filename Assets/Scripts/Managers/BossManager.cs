@@ -12,7 +12,8 @@ public class BossManager : MonoBehaviour
 
     public int currentBossIndex = 0;
 
-    public enum BossAttacks { NoDefense, NoAttack, NoCards, EnergyDrain, LifeSteal, Berserk, Default };
+    public enum BossAttacks { NoDefense, NoAttack, NoCards, EnergyDrain, ColetiveEnergyDrain,  LifeSteal, Berserk, Critical };
+    private BossAttacks currentAttack = BossAttacks.Critical; // ataque critico e o default
 
     [SerializeField] GameObject[] bossesObj;
     [SerializeField] BossStats[] bossesStats;
@@ -69,6 +70,7 @@ public class BossManager : MonoBehaviour
     void ChooseAttack()
     {
         if(!PhotonNetwork.IsMasterClient) return;
+        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.Critical);
         Invoke(nameof(Attack), 1.0f); // so pro ataque nao ser instantaneo. Feeling melhor
     }
 
@@ -92,11 +94,105 @@ public class BossManager : MonoBehaviour
 
         else if (!playerTwo.isAlive) target = playerOne;
 
-        battleManager.AttackPlayer(target, bossCharacter.damage, "INIMIGO ATACOU: " + target.characterName, 30, Character.CharacterEffect.CantUseCards); // TESTE DE LOGICA DO EFEITO
+        AttackInfo attackInfo = SetAttack(target);
+
+        battleManager.AttackPlayer(target, attackInfo.damage, "INIMIGO ATACOU: " + target.characterName + attackInfo.interludePanelMessage, 30, attackInfo.effect); // TESTE DE LOGICA DO EFEITO
 
         int targetActorNumber = CheckWhoIsTheTarget(target);
         Player targetPlayer = PhotonNetwork.CurrentRoom.GetPlayer(targetActorNumber);
         photonView.RPC(nameof(CallAttackEvent), targetPlayer);
+    }
+
+    AttackInfo SetAttack(PlayerCharacter target) // caso futuramente eu queira usar os status dos players como parametro de decisao da IA do boss
+    {
+        int attackDamage = bossCharacter.damage;
+        string attackMessage = "";
+        Character.CharacterEffect attackEffect = Character.CharacterEffect.None;
+
+        int randomAttackValue = SetRandomAttackValue();
+
+        if (randomAttackValue != 0) // todos os boss tem ataque critico (0). Caso eu queira adicionar o ataque de quebrar maquinas, so colocar && para tambem pular o switch
+        {
+            switch (currentBossIndex) // ataques especificos do boss
+            {
+                case 0:
+
+                    if (randomAttackValue == 1)
+                    {
+                        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.NoDefense);
+                        attackMessage = ". ALVO NÃO VAI PODER DEFENDER NO PRÓXIMO TURNO";
+                        attackEffect = Character.CharacterEffect.CantDeffend;
+                    }
+
+                    else
+                    {
+                        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.NoAttack);
+                        attackMessage = ". ALVO NÃO VAI PODER ATACAR NO PRÓXIMO TURNO";
+                        attackEffect = Character.CharacterEffect.CantAttack;
+                    }
+
+                    break;
+
+                case 1:
+
+                    if (randomAttackValue == 1)
+                    {
+                        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.NoCards);
+                        attackMessage = ". ALVO NÃO VAI PODER USAR CARTAS NO PRÓXIMO TURNO";
+                        attackEffect = Character.CharacterEffect.CantUseCards;
+                    }
+
+                    else
+                    {
+                        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.ColetiveEnergyDrain);
+                        attackMessage = ". AMBOS JOGADORES PERDERAM 1 CARGA DE ENERGIA";
+                        attackEffect = Character.CharacterEffect.None;
+                        photonView.RPC(nameof(DrainEnergy), RpcTarget.All, -1);
+                    }
+
+                    break;
+
+                case 2:
+
+                    if (randomAttackValue == 1 && bossCharacter.currentHealth > bossCharacter.maxHealth - 30) randomAttackValue = 2; 
+
+                    if (randomAttackValue == 1)
+                    {
+                        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.LifeSteal);
+                        attackMessage = ". INIMIGO SE CUROU";
+                        attackEffect = Character.CharacterEffect.None;
+
+                        battleManager.HealBoss(30);
+                    }
+
+                    else if (randomAttackValue == 2)
+                    {
+                        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.EnergyDrain);
+                        attackMessage = ". ALVO PERDEU 2 CARGAS DE ENERGIA";
+                        attackEffect = Character.CharacterEffect.None;
+
+                        int targetActorNumber = CheckWhoIsTheTarget(target);
+                        Player targetPlayer = PhotonNetwork.CurrentRoom.GetPlayer(targetActorNumber);
+                        photonView.RPC(nameof(DrainEnergy), targetPlayer, -2);
+                    }
+
+                    break;
+            }
+        }
+
+        else
+        {
+            attackDamage = Mathf.RoundToInt(bossCharacter.damage + (bossCharacter.damage / 2));
+            attackMessage = ". ACERTO CRÍTICO!";
+        }
+
+
+        return new AttackInfo(attackDamage, attackMessage, attackEffect);
+    }
+
+    int SetRandomAttackValue() // futuramente substituir por aleatoriedade ponderada
+    {
+        return UnityEngine.Random.Range(0, 3); 
     }
 
     int CheckWhoIsTheTarget(PlayerCharacter target)
@@ -172,9 +268,21 @@ public class BossManager : MonoBehaviour
     }
 
     [PunRPC]
+    void SyncCurrentAttack(int attackIndex)
+    {
+        currentAttack = (BossAttacks)attackIndex;
+    }
+
+    [PunRPC]
     void CallAttackEvent()
     {
-        OnBossAttack?.Invoke(BossAttacks.NoCards); // TESTE DE LOGICA
+        OnBossAttack?.Invoke(currentAttack);
+    }
+
+    [PunRPC]
+    void DrainEnergy(int amount)
+    {
+        FindAnyObjectByType<CardDeckController>().UpdateEnergy(amount);
     }
 }
 
@@ -206,4 +314,18 @@ public class BossStats
 
     public BossManager.BossAttacks firstAttack;
     public BossManager.BossAttacks secondAttack;
+}
+
+public struct AttackInfo
+{
+    public AttackInfo(int attackDamage, string message, Character.CharacterEffect attackEffect)
+    {
+        damage = attackDamage;
+        interludePanelMessage = message;
+        effect = attackEffect;
+    }
+
+    public int damage;
+    public string interludePanelMessage;
+    public Character.CharacterEffect effect;
 }

@@ -69,6 +69,12 @@ public class BattleManager : MonoBehaviour
         feedbackManager.SetInterludePanel(true, interludeMessage, interludeFontSize);
     }
 
+    public void HealBoss(int heal) // para o ataque de life steal
+    {
+        int targetViewID = boss.GetComponent<PhotonView>().ViewID;
+        photonView.RPC(nameof(ApplyHealing), RpcTarget.All, targetViewID, heal);
+    }
+
     public void SetVictory()
     {
         if (!PhotonNetwork.IsMasterClient) return;

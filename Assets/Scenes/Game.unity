@@ -9258,24 +9258,24 @@ MonoBehaviour:
   - {fileID: 149461307}
   bossesStats:
   - bossName: KRAKA
-    bossCurrentHealth: 70
-    bossMaxHealth: 70
+    bossCurrentHealth: 100
+    bossMaxHealth: 100
     bossResistence: 0
-    bossDamage: 30
+    bossDamage: 25
     firstAttack: 0
     secondAttack: 1
   - bossName: OTROVA
-    bossCurrentHealth: 25
-    bossMaxHealth: 25
+    bossCurrentHealth: 110
+    bossMaxHealth: 110
     bossResistence: 0
-    bossDamage: 35
+    bossDamage: 30
     firstAttack: 2
     secondAttack: 3
   - bossName: GOLYAM
-    bossCurrentHealth: 27
-    bossMaxHealth: 27
+    bossCurrentHealth: 120
+    bossMaxHealth: 120
     bossResistence: 0
-    bossDamage: 60
+    bossDamage: 35
     firstAttack: 4
     secondAttack: 5
   playerOne: {fileID: 520224944}

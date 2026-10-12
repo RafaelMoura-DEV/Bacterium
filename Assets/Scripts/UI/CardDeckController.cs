@@ -86,6 +86,7 @@ public class CardDeckController : MonoBehaviour
     public void UpdateEnergy(int amount) // futuramente para as cartas de energia e debuffs de ataques tambem
     {
         energy += amount;
+        if (energy < 0) energy = 0;
         energyText.text = energy.ToString();
     }
 
