@@ -33,19 +33,19 @@ public class DisplayerController : MonoBehaviour
         switch (informationIndex)
         {
             case 0:
-                displayerText.text = "Cause dano com base nos seus pontos de força.";
+                displayerText.text = "Cause dano com base nos seus pontos de forca.";
                 break;
 
             case 1:
-                displayerText.text = "Chame a atenção do inimigo e resista parte do dano.";
+                displayerText.text = "Chame a atencao do inimigo e resista parte do dano.";
                 break;
 
             case 2:
-                displayerText.text = "Conserte todas as máquinas quebradas.";
+                displayerText.text = "Conserte todas as maquinas quebradas.";
                 break;
 
             case 3:
-                displayerText.text = "Troque cartas da sua mão por novas. 1 uso por inimigo.";
+                displayerText.text = "Troque cartas da sua mao por novas. 1 uso por inimigo.";
                 break;
 
             case 4:
@@ -53,15 +53,15 @@ public class DisplayerController : MonoBehaviour
                 break;
 
             case 5:
-                displayerText.text = "Escolha um jogador para aumentar sua força nesse turno.";
+                displayerText.text = "Escolha um jogador para aumentar sua forca nesse turno.";
                 break;
 
             case 6:
-                displayerText.text = "Escolha um jogador para aumentar sua resistência nesse turno.";
+                displayerText.text = "Escolha um jogador para aumentar sua resistencia nesse turno.";
                 break;
 
             case 7:
-                displayerText.text = "Escolha um jogador e cure sua vida. Não adiciona vida extra.";
+                displayerText.text = "Escolha um jogador e cure sua vida. Nao adiciona vida extra.";
                 break;
         }
     }

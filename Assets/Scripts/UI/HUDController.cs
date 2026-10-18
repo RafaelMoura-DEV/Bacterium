@@ -122,8 +122,8 @@ public class HUDController : MonoBehaviour
     {
         infoPanelTexts[0].text = character.characterName;
         infoPanelTexts[1].text = "VIDA: " + character.currentHealth.ToString() + "/" + character.maxHealth.ToString();
-        infoPanelTexts[2].text = "FORÇA: " + character.damage.ToString();
-        infoPanelTexts[3].text = "RESISTÊNCIA: " + character.resistence + "%";
+        infoPanelTexts[2].text = "FORCA: " + character.damage.ToString();
+        infoPanelTexts[3].text = "RESISTENCIA: " + character.resistence + "%";
 
         switch (character.currentEffect)
         {
@@ -132,15 +132,15 @@ public class HUDController : MonoBehaviour
                 break;
 
             case Character.CharacterEffect.CantAttack:
-                infoPanelTexts[4].text = "Esse jogador não pode atacar durante esse turno.";
+                infoPanelTexts[4].text = "Esse jogador nao pode atacar durante esse turno.";
                 break;
 
             case Character.CharacterEffect.CantDeffend:
-                infoPanelTexts[4].text = "Esse jogador não pode defender durante esse turno.";
+                infoPanelTexts[4].text = "Esse jogador nao pode defender durante esse turno.";
                 break;
 
             case Character.CharacterEffect.CantUseCards:
-                infoPanelTexts[4].text = "Esse jogador não pode usar cartas durante esse turno.";
+                infoPanelTexts[4].text = "Esse jogador nao pode usar cartas durante esse turno.";
                 break;
         }
     }
@@ -148,7 +148,7 @@ public class HUDController : MonoBehaviour
     public void DisplayDieFeedback()
     {
         isClientOnGame = false;
-        localFeedbackText.text = "VOCÊ FOI MORTO...";
+        localFeedbackText.text = "VOCE FOI MORTO...";
         HideCardsHolder();
     }
 

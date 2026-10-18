@@ -120,14 +120,14 @@ public class BossManager : MonoBehaviour
                     if (randomAttackValue == 1)
                     {
                         photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.NoDefense);
-                        attackMessage = ". ALVO NÃO VAI PODER DEFENDER NO PRÓXIMO TURNO";
+                        attackMessage = ". ALVO NAO VAI PODER DEFENDER NO PROXIMO TURNO";
                         attackEffect = Character.CharacterEffect.CantDeffend;
                     }
 
                     else
                     {
                         photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.NoAttack);
-                        attackMessage = ". ALVO NÃO VAI PODER ATACAR NO PRÓXIMO TURNO";
+                        attackMessage = ". ALVO NAO VAI PODER ATACAR NO PROXIMO TURNO";
                         attackEffect = Character.CharacterEffect.CantAttack;
                     }
 
@@ -138,7 +138,7 @@ public class BossManager : MonoBehaviour
                     if (randomAttackValue == 1)
                     {
                         photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.NoCards);
-                        attackMessage = ". ALVO NÃO VAI PODER USAR CARTAS NO PRÓXIMO TURNO";
+                        attackMessage = ". ALVO NAO VAI PODER USAR CARTAS NO PROXIMO TURNO";
                         attackEffect = Character.CharacterEffect.CantUseCards;
                     }
 
@@ -183,7 +183,7 @@ public class BossManager : MonoBehaviour
         else
         {
             attackDamage = Mathf.RoundToInt(bossCharacter.damage + (bossCharacter.damage / 2));
-            attackMessage = ". ACERTO CRÍTICO!";
+            attackMessage = ". ACERTO CRITICO!";
         }
 
 
