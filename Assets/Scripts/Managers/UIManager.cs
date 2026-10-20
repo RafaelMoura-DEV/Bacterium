@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
         if (nickname.ToUpper() == "O RAFA É LINDO" || nickname.ToUpper() == "O RAFA E LINDO")
         {
-            nicknameFeedbackText.text = "São seus olhos, chuchuzinho";
+            nicknameFeedbackText.text = "Sao seus olhos, chuchuzinho";
             nicknameInputField.text = "";
             return;
         }
@@ -67,7 +67,7 @@ public class UIManager : MonoBehaviour
 
         else
         {
-            nicknameFeedbackText.text = "Insira um nome válido!";
+            nicknameFeedbackText.text = "Insira um nome valido!";
         }
     }
 
@@ -94,14 +94,14 @@ public class UIManager : MonoBehaviour
         if (!roomlistPanel.activeSelf)
         {
             roomlistPanel.SetActive(true);
-            joinButtonText.text = "ENTRAR          -";
+            joinButtonText.text = "ENTRAR           -";
             quitButton.transform.localPosition = new Vector3(quitButton.transform.localPosition.x, -470, quitButton.transform.localPosition.z);
         }
 
         else
         {
             roomlistPanel.SetActive(false);
-            joinButtonText.text = "ENTRAR          +";
+            joinButtonText.text = "ENTRAR           +";
             quitButton.transform.localPosition = new Vector3(quitButton.transform.localPosition.x, -48.0f, quitButton.transform.localPosition.z);
         }
     }
@@ -120,7 +120,7 @@ public class UIManager : MonoBehaviour
 
         else
         {
-            newRoomFeedbackText.text = "Insira um nome válido!";
+            newRoomFeedbackText.text = "Insira um nome valido!";
         }
     }
 
