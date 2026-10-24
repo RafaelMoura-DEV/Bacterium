@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4220184}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 652007365}
+        m_TargetAssemblyTypeName: FreezePanel, Assembly-CSharp
+        m_MethodName: AddChageAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4220184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,8 +363,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 82.8968, y: 31.7611}
+  m_AnchoredPosition: {x: 0.000076771, y: -46.400032}
+  m_SizeDelta: {x: 100, y: 31.7611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &55623573
 MonoBehaviour:
@@ -374,10 +386,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "+15%\nFor\xE7a"
+  m_text: '+15%
+
+    Forca'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
+  m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -401,8 +415,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -650,8 +664,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
+  m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -675,8 +689,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 27
+  m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1697,7 +1711,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207450473}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 652007365}
+        m_TargetAssemblyTypeName: FreezePanel, Assembly-CSharp
+        m_MethodName: ConfirmCharge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &207450473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2170,7 +2196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &290200435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2278,7 +2304,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1130322819}
+      - m_Target: {fileID: 652007365}
         m_TargetAssemblyTypeName: FreezePanel, Assembly-CSharp
         m_MethodName: ToggleSecondaryPanel
         m_Mode: 6
@@ -3132,8 +3158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 82.8968, y: 31.7611}
+  m_AnchoredPosition: {x: 0.000076771, y: -46.400032}
+  m_SizeDelta: {x: 100, y: 31.7611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &419757991
 MonoBehaviour:
@@ -3155,10 +3181,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "+10%\nResist\xEAncia"
+  m_text: '+10%
+
+    Resistencia'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
+  m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3182,8 +3210,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3542,7 +3570,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &467820331
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3552,7 +3580,7 @@ RectTransform:
   m_GameObject: {fileID: 467820330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1444288, y: 1.0695596, z: 1.0695596}
+  m_LocalScale: {x: 1.0557245, y: 1.0178158, z: 1.0385876}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 252702355}
@@ -3560,7 +3588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 152.88885, y: -3.2030144}
+  m_AnchoredPosition: {x: 129, y: -3.2030144}
   m_SizeDelta: {x: 117.6597, y: 178.7869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &467820332
@@ -3978,7 +4006,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1130322819}
+      - m_Target: {fileID: 652007365}
         m_TargetAssemblyTypeName: FreezePanel, Assembly-CSharp
         m_MethodName: ToggleSecondaryPanel
         m_Mode: 6
@@ -4625,6 +4653,7 @@ GameObject:
   - component: {fileID: 652007362}
   - component: {fileID: 652007363}
   - component: {fileID: 652007364}
+  - component: {fileID: 652007365}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -4687,6 +4716,26 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &652007365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652007361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc960f24c1cb1143af600d03f85d3d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FreezePanel
+  freezePanel: {fileID: 783437244}
+  descriptionObj: {fileID: 1722015858}
+  chargeObj: {fileID: 290200434}
+  descriptionButtonImage: {fileID: 509528644}
+  chargeButtonImage: {fileID: 311698073}
+  totalChargeText: {fileID: 786321738}
+  chargeAmountText: {fileID: 1436041822}
+  totalCharge: 0
 --- !u!1 &723897291
 GameObject:
   m_ObjectHideFlags: 0
@@ -5970,8 +6019,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
+  m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5995,8 +6044,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 27
+  m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6068,7 +6117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &894645614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6078,7 +6127,7 @@ RectTransform:
   m_GameObject: {fileID: 894645613}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1444288, y: 1.0695596, z: 1.0695596}
+  m_LocalScale: {x: 1.0557245, y: 1.0178158, z: 1.0385876}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1871903544}
@@ -6086,7 +6135,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13.888863, y: -3.2030144}
+  m_AnchoredPosition: {x: 0, y: -3.2030144}
   m_SizeDelta: {x: 117.6597, y: 178.7869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &894645615
@@ -6280,8 +6329,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 82.8968, y: 31.7611}
+  m_AnchoredPosition: {x: 0.000076771, y: -46.4}
+  m_SizeDelta: {x: 100, y: 31.7611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &902225723
 MonoBehaviour:
@@ -6307,8 +6356,8 @@ MonoBehaviour:
 
     Cura'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
+  m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6332,8 +6381,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
-  m_fontSizeBase: 15
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7059,7 +7108,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 973299097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 652007365}
+        m_TargetAssemblyTypeName: FreezePanel, Assembly-CSharp
+        m_MethodName: AddChageAmount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &973299097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7434,10 +7495,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.8509804, g: 0.45360652, b: 0.09411762, a: 1}
-    m_HighlightedColor: {r: 0.79622644, g: 0.79622644, b: 0.79622644, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -8379,7 +8440,6 @@ GameObject:
   - component: {fileID: 1130322815}
   - component: {fileID: 1130322817}
   - component: {fileID: 1130322818}
-  - component: {fileID: 1130322819}
   m_Layer: 0
   m_Name: HUDManager
   m_TagString: Untagged
@@ -8452,23 +8512,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InterludeUI
   interludePanel: {fileID: 363499872}
   interludeText: {fileID: 723897293}
---- !u!114 &1130322819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1130322814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bc960f24c1cb1143af600d03f85d3d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FreezePanel
-  freezePanel: {fileID: 783437244}
-  descriptionObj: {fileID: 1722015858}
-  chargeObj: {fileID: 290200434}
-  descriptionButtonImage: {fileID: 509528644}
-  chargeButtonImage: {fileID: 311698073}
 --- !u!1 &1151419369
 GameObject:
   m_ObjectHideFlags: 0
@@ -9576,8 +9619,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
+  m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9601,8 +9644,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 27
+  m_fontSizeBase: 27
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10227,10 +10270,10 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.044022713, g: 0.86415094, b: 0.8068216, a: 1}
-    m_HighlightedColor: {r: 0.79622644, g: 0.79622644, b: 0.79622644, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -10249,7 +10292,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1130322819}
+      - m_Target: {fileID: 652007365}
         m_TargetAssemblyTypeName: FreezePanel, Assembly-CSharp
         m_MethodName: ToggleFreezePanel
         m_Mode: 1
@@ -11311,7 +11354,7 @@ MonoBehaviour:
     bossCurrentHealth: 110
     bossMaxHealth: 110
     bossResistence: 0
-    bossDamage: 30
+    bossDamage: 100
     firstAttack: 2
     secondAttack: 3
   - bossName: GOLYAM
@@ -11394,7 +11437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1722015859
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11636,7 +11679,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1130322819}
+      - m_Target: {fileID: 652007365}
         m_TargetAssemblyTypeName: FreezePanel, Assembly-CSharp
         m_MethodName: ToggleFreezePanel
         m_Mode: 1
@@ -13595,7 +13638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2089717405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13605,7 +13648,7 @@ RectTransform:
   m_GameObject: {fileID: 2089717404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1444288, y: 1.0695596, z: 1.0695596}
+  m_LocalScale: {x: 1.0557245, y: 1.0178158, z: 1.0385876}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1603336746}
@@ -13613,7 +13656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -126.111015, y: -3.2030144}
+  m_AnchoredPosition: {x: -130, y: -3.2030144}
   m_SizeDelta: {x: 117.6597, y: 178.7869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2089717406
