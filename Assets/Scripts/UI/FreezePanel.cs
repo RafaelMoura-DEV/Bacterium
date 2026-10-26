@@ -22,6 +22,7 @@ public class FreezePanel : MonoBehaviour
 
     public int totalCharge = 0; // total (global)
     private int chargeAmount = 0; // quantidade carregada pelo jogador
+    [SerializeField] private int turnCharge = 0; // limite de 2 por turno para cada jogador
 
     private Color buttonsOriginalColor;
 
@@ -42,11 +43,13 @@ public class FreezePanel : MonoBehaviour
     private void OnEnable()
     {
         battleManager.OnPlayerTurnEnd += FreezeEnemy;
+        battleManager.OnPlayerTurnEnd += HideFreezePanel;
     }
 
     private void OnDisable()
     {
         battleManager.OnPlayerTurnEnd -= FreezeEnemy;
+        battleManager.OnPlayerTurnEnd -= HideFreezePanel;
     }
 
     // ------------------------------------------------------------------------------- //
@@ -86,18 +89,27 @@ public class FreezePanel : MonoBehaviour
 
     public void ConfirmCharge()
     {
-        if (cardDeckController.energy == 0 || cardDeckController.energy < chargeAmount) return;
+        if (cardDeckController.energy == 0 || cardDeckController.energy < chargeAmount || turnCharge == 2 || (chargeAmount == 2 && turnCharge == 1)) return;
 
         cardDeckController.UpdateEnergy(-chargeAmount);     
 
         photonView.RPC(nameof(UpdateTotalCharge), RpcTarget.All, chargeAmount);
 
+        turnCharge += chargeAmount;
+
         chargeAmount = 0;
         chargeAmountText.text = chargeAmount.ToString();
     }
 
+    void HideFreezePanel() // para esconder junto com o cardholder no final do turno
+    {
+        freezePanel.gameObject.SetActive(false);
+    }
+
     void FreezeEnemy()
     {
+        turnCharge = 0;
+
         if (totalCharge < 5) return;
 
         Debug.Log("CONGELANDOOO");
