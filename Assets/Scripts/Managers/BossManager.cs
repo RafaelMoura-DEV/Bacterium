@@ -223,6 +223,11 @@ public class BossManager : MonoBehaviour
         StartCoroutine(DieCoroutine());
     }
 
+    public void SetFreezeFeedback()
+    {
+        StartCoroutine(nameof(FreezeCoroutine));
+    }
+
     IEnumerator DieCoroutine()
     {
         if (isFirstCall) // seguinte, a master ta chamando 2 vezes essa porra e eu n sei como resolver sem fuder inteiramente o battlemanager XD
@@ -260,6 +265,37 @@ public class BossManager : MonoBehaviour
             }
         }
     }
+
+    public IEnumerator FreezeCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        activeBoss.bossAnimator.speed = 0.0f;
+        activeBoss.bossSilhouetteAnimator.speed = 0.0f;
+
+        Color initialColor = activeBoss.bossSpriteRenderer.color;
+        Color targetColor = new Color(0f, 1f, 1f, 1f);
+
+        float elapsed = 0f;
+
+        while (elapsed < 2.0f)
+        {
+            elapsed += Time.deltaTime;
+
+            activeBoss.bossSpriteRenderer.color = Color.Lerp(initialColor, targetColor, elapsed / 1.25f);
+
+            yield return null;
+        }
+
+        activeBoss.bossSpriteRenderer.color = targetColor;
+
+        yield return new WaitForSeconds(2.25f);
+
+        activeBoss.bossAnimator.speed = 1.0f;
+        activeBoss.bossSilhouetteAnimator.speed = 1.0f;
+        activeBoss.bossSpriteRenderer.color = Color.white;
+    }
+
 
     [PunRPC]
     void SyncActiveBoss()

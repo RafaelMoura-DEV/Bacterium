@@ -25,7 +25,7 @@ public class FreezePanel : MonoBehaviour
     private int chargeAmount = 0; // quantidade carregada pelo jogador
     private int turnCharge = 0; // limite de 2 por turno para cada jogador
 
-    private bool freezeInThisBattle = false; // pra congelar 1 vez por turno. AINDA NAO PROGRAMEI ESSA PORRA
+    private bool freezeInThisBattle = false; // pra congelar 1 vez por turno
 
     private Color buttonsOriginalColor;
 
@@ -114,9 +114,10 @@ public class FreezePanel : MonoBehaviour
     {
         turnCharge = 0;
 
-        if (totalCharge < 5) return;
+        if (freezeInThisBattle || totalCharge < 5) return;
 
         UpdateTotalCharge(-5);
+        freezeInThisBattle = true;
         bossManager.isFrozen = true;
     }
 

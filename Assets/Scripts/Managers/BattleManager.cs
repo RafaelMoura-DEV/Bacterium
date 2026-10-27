@@ -274,7 +274,8 @@ public class BattleManager : MonoBehaviour
     [PunRPC]
     void SetBossFrozen()
     {
-        Debug.Log("ui ui");
+        boss.GetComponent<BossManager>().SetFreezeFeedback();
+        photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
     }
 
     // ----------------------------- LOGICA DAS CARTAS ----------------------------- // 
