@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class BossManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BossManager : MonoBehaviour
     PhotonView photonView;
 
     public int currentBossIndex = 0;
+    public bool isFrozen = false;
 
     public enum BossAttacks { NoDefense, NoAttack, NoCards, EnergyDrain, ColetiveEnergyDrain,  LifeSteal, Berserk, Critical };
     private BossAttacks currentAttack = BossAttacks.Critical; // ataque critico e o default
@@ -70,8 +72,18 @@ public class BossManager : MonoBehaviour
     void ChooseAttack()
     {
         if(!PhotonNetwork.IsMasterClient) return;
-        photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.Critical);
-        Invoke(nameof(Attack), 1.0f); // so pro ataque nao ser instantaneo. Feeling melhor
+
+        if (!isFrozen)
+        {
+            photonView.RPC(nameof(SyncCurrentAttack), RpcTarget.All, (int)BossAttacks.Critical);
+            Invoke(nameof(Attack), 1.0f); // so pro ataque nao ser instantaneo. Feeling melhor
+        }
+
+        else
+        {
+            battleManager.PassTurnFrozen();
+            isFrozen = false;
+        }
     }
 
     void Attack()

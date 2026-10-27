@@ -69,6 +69,11 @@ public class BattleManager : MonoBehaviour
         feedbackManager.SetInterludePanel(true, interludeMessage, interludeFontSize);
     }
 
+    public void PassTurnFrozen()
+    {
+        photonView.RPC(nameof(SetBossFrozen), RpcTarget.All);
+    }
+
     public void HealBoss(int heal) // para o ataque de life steal
     {
         int targetViewID = boss.GetComponent<PhotonView>().ViewID;
@@ -264,6 +269,12 @@ public class BattleManager : MonoBehaviour
     void ResolveBossTurn()
     {
         StartCoroutine(PassTurnToPlayersCoroutine());
+    }
+
+    [PunRPC]
+    void SetBossFrozen()
+    {
+        Debug.Log("ui ui");
     }
 
     // ----------------------------- LOGICA DAS CARTAS ----------------------------- // 

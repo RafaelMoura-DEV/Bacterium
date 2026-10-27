@@ -7,6 +7,7 @@ public class FreezePanel : MonoBehaviour
 {
     CardDeckController cardDeckController;
     BattleManager battleManager;
+    BossManager bossManager;
 
     PhotonView photonView;
 
@@ -22,7 +23,9 @@ public class FreezePanel : MonoBehaviour
 
     public int totalCharge = 0; // total (global)
     private int chargeAmount = 0; // quantidade carregada pelo jogador
-    [SerializeField] private int turnCharge = 0; // limite de 2 por turno para cada jogador
+    private int turnCharge = 0; // limite de 2 por turno para cada jogador
+
+    private bool freezeInThisBattle = false; // pra congelar 1 vez por turno. AINDA NAO PROGRAMEI ESSA PORRA
 
     private Color buttonsOriginalColor;
 
@@ -31,6 +34,7 @@ public class FreezePanel : MonoBehaviour
     private void Awake()
     {
         cardDeckController = FindAnyObjectByType<CardDeckController>();
+        bossManager = FindAnyObjectByType<BossManager>();
         photonView = GetComponent<PhotonView>();
         battleManager = GetComponent<BattleManager>();
     }
@@ -112,7 +116,8 @@ public class FreezePanel : MonoBehaviour
 
         if (totalCharge < 5) return;
 
-        Debug.Log("CONGELANDOOO");
+        UpdateTotalCharge(-5);
+        bossManager.isFrozen = true;
     }
 
 
