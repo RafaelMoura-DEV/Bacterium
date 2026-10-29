@@ -40,6 +40,11 @@ public class PlayerCharacter : Character
         characterAnimator.SetTrigger("Deffend");
     }
 
+    public void VirtualCharge()
+    {
+        characterSpriteRender.color = Color.yellow;
+    }
+
     public override void ResetAnimation()
     {
         if (this.currentHealth <= 0) return;

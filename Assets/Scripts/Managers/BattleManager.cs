@@ -17,7 +17,7 @@ public class BattleManager : MonoBehaviour
 
     public enum GameOverType { Victory, Defeat };
 
-    public enum PlayerAction { Attack, Defense };
+    public enum PlayerAction { Attack, Defense, Charge };
 
     private Dictionary<int, PlayerAction> playerActions = new Dictionary<int, PlayerAction>();
 
@@ -54,6 +54,11 @@ public class BattleManager : MonoBehaviour
     public void ChooseDefense()
     {
         ChooseAction(PlayerAction.Defense);
+    }
+
+    public void ChooseCharge()
+    {
+        ChooseAction(PlayerAction.Charge);
     }
 
     // BOSS //
@@ -210,6 +215,10 @@ public class BattleManager : MonoBehaviour
             case (int)PlayerAction.Defense:
                 players[playerIndex].VirtualDeffend();
                 break;
+
+            case (int)PlayerAction.Charge:
+                players[playerIndex].VirtualCharge();
+                break;
         }        
     }
 
@@ -275,6 +284,9 @@ public class BattleManager : MonoBehaviour
     void SetBossFrozen()
     {
         boss.GetComponent<BossManager>().SetFreezeFeedback();
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        Debug.LogWarning("aaaaa");
         photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
     }
 
@@ -360,6 +372,11 @@ public class BattleManager : MonoBehaviour
             {
                 photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, actorNumber -1, true);
                 photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Defense);
+            }
+
+            else if (playerAction == PlayerAction.Charge)
+            {
+                photonView.RPC(nameof(SetPlayerActionFeedback), RpcTarget.All, actorNumber - 1, (int)PlayerAction.Charge);
             }
 
             yield return new WaitForSeconds(1.5f); // tempo entre as acoes dos players, apenas para ficar com feeling melhor

@@ -28,7 +28,7 @@ public class DisplayerController : MonoBehaviour
 
     // -------------------------------------------------------------------------------------------------- //
 
-    public void UpdateDisplay(int informationIndex) // Attack = 0; Defense = 1; Fix = 2; Reroll = 3; Freeze = 4; CartaDano = 5; CartaResistencia = 6; CartaCura = 7;
+    public void UpdateDisplay(int informationIndex) // Attack = 0; Defense = 1; Charge = 2; Reroll = 3; Freeze = 4; CartaDano = 5; CartaResistencia = 6; CartaCura = 7;
     {
         switch (informationIndex)
         {
@@ -41,7 +41,7 @@ public class DisplayerController : MonoBehaviour
                 break;
 
             case 2:
-                displayerText.text = "Conserte todas as maquinas quebradas.";
+                displayerText.text = "Recarregue 2 cargas de sua energia.";
                 break;
 
             case 3:
@@ -71,7 +71,7 @@ public class DisplayerController : MonoBehaviour
         displayerText.text = "";
     }
 
-    public void SelectButton(int buttonIndex) // Attack = 0; Defense = 1; Fix = 2;
+    public void SelectButton(int buttonIndex) // Attack = 0; Defense = 1; Charge = 2;
     {
         DeactivateButtons();
 
