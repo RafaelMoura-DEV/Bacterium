@@ -87,6 +87,7 @@ public class CardDeckController : MonoBehaviour
     {
         energy += amount;
         if (energy < 0) energy = 0;
+        if (energy > 5) energy = 5;
         energyText.text = energy.ToString();
     }
 

@@ -7,6 +7,7 @@ using System.Collections;
 public class BattleManager : MonoBehaviour
 {
     FeedbackManager feedbackManager;
+    CardDeckController cardDeckController;
 
     PhotonView photonView;
 
@@ -40,6 +41,7 @@ public class BattleManager : MonoBehaviour
     {
         photonView = GetComponent<PhotonView>();
         feedbackManager = FindAnyObjectByType<FeedbackManager>();
+        cardDeckController = FindAnyObjectByType<CardDeckController>();
     }
 
     // --------------------------------- MÉTODOS COMUNS PÚBLICOS  --------------------------------- //
@@ -140,8 +142,7 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(SetPlayerDefense), RpcTarget.All, 1, false);
         photonView.RPC(nameof(ResetPlayerBaseStats), RpcTarget.All);
 
-        CardDeckController cardDeckController = FindAnyObjectByType<CardDeckController>();
-        if (cardDeckController.energy < 5 && !cardDeckController.isEnergyMachineBroken) cardDeckController.UpdateEnergy(1); 
+        cardDeckController.UpdateEnergy(1);
     }
 
     // -------------------------------- MÉTODOS RPC -------------------------------- //

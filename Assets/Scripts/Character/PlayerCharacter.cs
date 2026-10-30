@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
+    CardDeckController cardDeckController;
+
     public bool isDefending = false;
 
     public SpriteRenderer characterSpriteRender;
@@ -10,6 +12,11 @@ public class PlayerCharacter : Character
     public Animator silhouetteAnimator;
 
     // --------------------------------------------------------- //
+
+    private void Start()
+    {
+        cardDeckController = FindAnyObjectByType<CardDeckController>();
+    }
 
     public override void TakeDamage(int damage)
     {
@@ -42,7 +49,8 @@ public class PlayerCharacter : Character
 
     public void VirtualCharge()
     {
-        characterSpriteRender.color = Color.yellow;
+        StartCoroutine(nameof(ChargeCoroutine));
+        cardDeckController.UpdateEnergy(2);
     }
 
     public override void ResetAnimation()
@@ -101,5 +109,19 @@ public class PlayerCharacter : Character
         }
 
         spriteTransform.localPosition = originalPosition;
+    }
+
+    IEnumerator ChargeCoroutine()
+    {
+        Color flashColor = new Color(0.99f, 1.0f, 0.45f, 1.0f);
+
+        for (int i = 0; i < 3; i++)
+        {
+            characterSpriteRender.color = flashColor;
+            yield return new WaitForSeconds(0.125f);
+
+            characterSpriteRender.color = Color.white;
+            yield return new WaitForSeconds(0.125f);
+        }
     }
 }
