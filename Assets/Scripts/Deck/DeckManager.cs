@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 public class DeckManager : MonoBehaviour
 {
+    CardDeckController cardDeckController;
+
     [System.Serializable]
     public class DeckEntry
     {
@@ -42,6 +44,11 @@ public class DeckManager : MonoBehaviour
     private bool isInitialized = false;
 
 
+    private void Awake()
+    {
+        cardDeckController = GetComponent<CardDeckController>();
+    }
+
     private void Start()
     {
         InitializeDeck();
@@ -54,6 +61,8 @@ public class DeckManager : MonoBehaviour
         {
             DrawUntilHandFull();
         }
+
+        cardDeckController.SetCards(GetCardsInHand());
     }
 
 
@@ -324,5 +333,17 @@ public class DeckManager : MonoBehaviour
         }
 
         return hand[slotIndex];
+    }
+
+    Card[] GetCardsInHand()
+    {
+        Card[] cards = new Card[3];
+
+        for (int i = 0; i < 3; i++)
+        {
+            cards[i] = hand[i].GetComponent<Card>();
+        }
+
+        return cards;
     }
 }

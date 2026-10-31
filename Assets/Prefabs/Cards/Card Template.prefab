@@ -409,7 +409,7 @@ MonoBehaviour:
   damageBuff: 0
   resistenceBuff: 0
   heal: 0
-  isSelected: 1
+  isSelected: 0
 --- !u!1 &5210879837591726025
 GameObject:
   m_ObjectHideFlags: 0

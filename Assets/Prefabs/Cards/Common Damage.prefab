@@ -329,12 +329,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 484750c9052f9d348941c791d88e1095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
-  cardType: 3
-  energyCost: 0
-  damageBuff: 0
+  cardType: 0
+  energyCost: 1
+  damageBuff: 15
   resistenceBuff: 0
   heal: 0
-  isSelected: 1
+  isSelected: 0
 --- !u!1 &5210879837591726025
 GameObject:
   m_ObjectHideFlags: 0

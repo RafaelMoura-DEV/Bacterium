@@ -18,6 +18,8 @@ public class CardDeckController : MonoBehaviour
     [SerializeField] GameObject overlayPanel; // sprite
     [SerializeField] GameObject overlyText; // UI
 
+    Color[] originalCardColors = new Color[3];
+
     private void Awake()
     {
         battleManager = FindAnyObjectByType<BattleManager>();
@@ -91,11 +93,21 @@ public class CardDeckController : MonoBehaviour
         energyText.text = energy.ToString();
     }
 
+    public void SetCards(Card[] cardsInHand)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            cards[i] = cardsInHand[i];
+        }
+
+        SetOriginalColors();
+    }
+
     void ResetCardsFeedback()
     {
         for (int i = 0; i < cards.Length; i++)
         {
-            cards[i].gameObject.GetComponent<Image>().color = Color.white;
+            cards[i].gameObject.GetComponent<Image>().color = originalCardColors[i];
             cards[i].isSelected = false;
         }
     }
@@ -104,5 +116,13 @@ public class CardDeckController : MonoBehaviour
     {
         overlayPanel.SetActive(false);
         overlyText.SetActive(false);
+    }
+
+    void SetOriginalColors()
+    {      
+        for (int i = 0; i < 3 ; i++)
+        {
+            originalCardColors[i] = cards[i].gameObject.GetComponent<Image>().color;
+        }
     }
 }
