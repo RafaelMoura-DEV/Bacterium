@@ -12,7 +12,7 @@ public class CardDeckController : MonoBehaviour
     public bool isEnergyMachineBroken = false;
     [SerializeField] TextMeshProUGUI energyText;
 
-    public Card[] cards; // futuramente, toda a logica do deck de cartas estara aqui
+    public Card[] cards;
     [HideInInspector] public Card selectedCard = null;
 
     [SerializeField] GameObject overlayPanel; // sprite
