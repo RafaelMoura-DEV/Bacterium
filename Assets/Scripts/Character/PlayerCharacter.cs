@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
-    CardDeckController cardDeckController;
-
     public bool isDefending = false;
 
     public SpriteRenderer characterSpriteRender;
@@ -12,11 +10,6 @@ public class PlayerCharacter : Character
     public Animator silhouetteAnimator;
 
     // --------------------------------------------------------- //
-
-    private void Start()
-    {
-        cardDeckController = FindAnyObjectByType<CardDeckController>();
-    }
 
     public override void TakeDamage(int damage)
     {
@@ -50,7 +43,6 @@ public class PlayerCharacter : Character
     public void VirtualCharge()
     {
         StartCoroutine(nameof(ChargeCoroutine));
-        cardDeckController.UpdateEnergy(2);
     }
 
     public override void ResetAnimation()

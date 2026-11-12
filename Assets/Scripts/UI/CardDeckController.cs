@@ -7,6 +7,7 @@ using Photon.Pun;
 public class CardDeckController : MonoBehaviour
 {
     BattleManager battleManager;
+    DeckManager deckManager;
 
     public int energy = 5;
     public bool isEnergyMachineBroken = false;
@@ -23,6 +24,7 @@ public class CardDeckController : MonoBehaviour
     private void Awake()
     {
         battleManager = FindAnyObjectByType<BattleManager>();
+        deckManager = GetComponent<DeckManager>();
     }
 
     private void OnEnable()
@@ -79,6 +81,9 @@ public class CardDeckController : MonoBehaviour
             HideOverlay();
 
             UpdateEnergy(-selectedCard.energyCost);
+
+            deckManager.ReturnUsedCard(selectedCard.gameObject);
+
             selectedCard = null;
         }
     }
@@ -103,7 +108,7 @@ public class CardDeckController : MonoBehaviour
         SetOriginalColors();
     }
 
-    void ResetCardsFeedback()
+    void ResetCardsFeedback() //////////////////////////////////////////////
     {
         for (int i = 0; i < cards.Length; i++)
         {

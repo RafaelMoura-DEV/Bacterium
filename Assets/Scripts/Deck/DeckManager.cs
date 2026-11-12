@@ -285,8 +285,7 @@ public class DeckManager : MonoBehaviour
 
         drawPile.Insert(randomIndex, originalPrefab);
 
-        // Destrói somente a instância utilizada.
-        Destroy(cardInstance);
+        cardInstance.SetActive(false);
 
         Debug.Log(
             $"Carta devolvida ao baralho. Slot {slotIndex + 1} liberado."
@@ -297,7 +296,9 @@ public class DeckManager : MonoBehaviour
     // Chame este método no início de cada turno do jogador.
     public void StartPlayerTurn()
     {
+        DestroyUsedCards();
         DrawUntilHandFull();
+        cardDeckController.SetCards(GetCardsInHand());
     }
 
 
@@ -345,5 +346,13 @@ public class DeckManager : MonoBehaviour
         }
 
         return cards;
+    }
+
+    void DestroyUsedCards()
+    {
+        for (int i = 0; i < cardSlots.Length; ++i)
+        {
+            if (cardSlots[i].GetChild(0).gameObject.activeSelf == false) Destroy(cardSlots[i].GetChild(0).gameObject);
+        }
     }
 }

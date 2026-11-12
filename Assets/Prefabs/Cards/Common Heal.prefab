@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardType: 2
-  energyCost: 3
+  energyCost: 2
   damageBuff: 0
   resistenceBuff: 0
   heal: 20

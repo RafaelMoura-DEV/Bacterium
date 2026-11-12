@@ -5,25 +5,31 @@ using UnityEngine.UI;
 public class DisplayerController : MonoBehaviour
 {
     BattleManager battleManager;
+    CardDeckController cardDeckController;
 
     [SerializeField] TextMeshProUGUI displayerText;
     [SerializeField] GameObject[] actionButtons;
+
+    public bool chargeBool = false;
 
     // -------------------------------------------------------------------------------------------------- //
 
     private void Awake()
     {
         battleManager = FindAnyObjectByType<BattleManager>();
+        cardDeckController = FindAnyObjectByType<CardDeckController>();
     }
 
     private void OnEnable()
     {
         battleManager.OnPlayerTurnStart += DeactivateButtons;
+        battleManager.OnPlayerTurnEnd += CheckChargeBool;
     }
 
     private void OnDisable()
     {
         battleManager.OnPlayerTurnStart -= DeactivateButtons;
+        battleManager.OnPlayerTurnEnd -= CheckChargeBool;
     }
 
     // -------------------------------------------------------------------------------------------------- //
@@ -77,14 +83,24 @@ public class DisplayerController : MonoBehaviour
 
         actionButtons[buttonIndex].GetComponent<Button>().enabled = false;
         actionButtons[buttonIndex].GetComponent<Image>().color = Color.gray;
+
+        if (buttonIndex == 2) chargeBool = true;
+        else chargeBool = false;
     }
 
     void DeactivateButtons()
     {
+        chargeBool = false;
+
         for (int i = 0; i < actionButtons.Length; i++)
         {
             actionButtons[i].GetComponent<Button>().enabled = true;
             actionButtons[i].GetComponent<Image>().color = Color.white;
         }
+    }
+
+    void CheckChargeBool()
+    {
+        if (chargeBool) cardDeckController.UpdateEnergy(2);
     }
 }

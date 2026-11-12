@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 public class BossManager : MonoBehaviour
 {
     BattleManager battleManager;
+    FreezePanel freezePanel;
 
     PhotonView photonView;
 
@@ -35,6 +36,7 @@ public class BossManager : MonoBehaviour
     private void Awake()
     {
         battleManager = FindAnyObjectByType<BattleManager>();
+        freezePanel = FindAnyObjectByType<FreezePanel>();
         bossCharacter = GetComponent<EnemyCharacter>();
         photonView = GetComponent<PhotonView>();
         UpdateActiveBoss();
@@ -166,7 +168,7 @@ public class BossManager : MonoBehaviour
 
                 case 2:
 
-                    if (randomAttackValue == 1 && bossCharacter.currentHealth > bossCharacter.maxHealth - 30) randomAttackValue = 2; 
+                    if (randomAttackValue == 1 && bossCharacter.currentHealth > bossCharacter.maxHealth - 50) randomAttackValue = 2; 
 
                     if (randomAttackValue == 1)
                     {
@@ -174,7 +176,7 @@ public class BossManager : MonoBehaviour
                         attackMessage = ". INIMIGO SE CUROU";
                         attackEffect = Character.CharacterEffect.None;
 
-                        battleManager.HealBoss(30);
+                        battleManager.HealBoss(15);
                     }
 
                     else if (randomAttackValue == 2)
@@ -264,6 +266,8 @@ public class BossManager : MonoBehaviour
                 photonView.RPC(nameof(SyncActiveBoss), RpcTarget.All);
             }
         }
+
+        freezePanel.freezeInThisBattle = false;
     }
 
     public IEnumerator FreezeCoroutine()

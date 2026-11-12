@@ -13,6 +13,7 @@ public class Card : MonoBehaviour
     // -------------------------------------------------------------- //
 
     CardDeckController deckController;
+
     public bool isSelected = false;
 
     private void Awake()

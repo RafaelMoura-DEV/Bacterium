@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
   m_sharedMaterial: {fileID: -2729256833238413558, guid: 276bfb8311efeac41a4fb32bc4318787, type: 2}
@@ -330,8 +330,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardType: 0
-  energyCost: 4
-  damageBuff: 80
+  energyCost: 3
+  damageBuff: 75
   resistenceBuff: 0
   heal: 0
   isSelected: 0
@@ -589,7 +589,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '+80%
+  m_text: '+75%
 
     Dano'
   m_isRightToLeft: 0

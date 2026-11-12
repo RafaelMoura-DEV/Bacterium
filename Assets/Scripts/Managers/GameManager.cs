@@ -42,19 +42,30 @@ public class GameManager : IPersistentSingleton<GameManager>
         if (scene.name == "Menu")
         {
             playersWon = false;
+            AudioManager.Instance.SwitchSoundtrack(AudioManager.Soundtracks.Menu, 0.5f, true);
         }
 
         if (scene.name == "Game")
         {
-            SetPlayersName();
+            //SetPlayersName();
+            AudioManager.Instance.SwitchSoundtrack(AudioManager.Soundtracks.Game, 1.0f, true);
         }
 
         if (scene.name == "GameOver")
         {
             GameOverScreen gameOverScreen = FindAnyObjectByType<GameOverScreen>();
 
-            if (playersWon) gameOverScreen.SetGameOverScreen(true);
-            else gameOverScreen.SetGameOverScreen(false);
+            if (playersWon)
+            {
+                gameOverScreen.SetGameOverScreen(true);
+                AudioManager.Instance.PlaySound(AudioManager.SFXs.Victory, 1.0f, 1.0f);
+            }
+
+            else
+            {
+                gameOverScreen.SetGameOverScreen(false);
+                AudioManager.Instance.PlaySound(AudioManager.SFXs.Defeat, 1.0f, 1.0f);
+            }
 
             if (PhotonNetwork.IsMasterClient) gameOverScreen.ToggleRestartButton(true);
             else gameOverScreen.ToggleRestartButton(false);

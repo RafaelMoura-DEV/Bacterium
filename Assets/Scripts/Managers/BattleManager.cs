@@ -8,6 +8,7 @@ public class BattleManager : MonoBehaviour
 {
     FeedbackManager feedbackManager;
     CardDeckController cardDeckController;
+    DeckManager deckManager;
 
     PhotonView photonView;
 
@@ -42,6 +43,7 @@ public class BattleManager : MonoBehaviour
         photonView = GetComponent<PhotonView>();
         feedbackManager = FindAnyObjectByType<FeedbackManager>();
         cardDeckController = FindAnyObjectByType<CardDeckController>();
+        deckManager = FindAnyObjectByType<DeckManager>();
     }
 
     // --------------------------------- MÉTODOS COMUNS PÚBLICOS  --------------------------------- //
@@ -143,6 +145,7 @@ public class BattleManager : MonoBehaviour
         photonView.RPC(nameof(ResetPlayerBaseStats), RpcTarget.All);
 
         cardDeckController.UpdateEnergy(1);
+        deckManager.StartPlayerTurn();
     }
 
     // -------------------------------- MÉTODOS RPC -------------------------------- //
@@ -287,7 +290,6 @@ public class BattleManager : MonoBehaviour
         boss.GetComponent<BossManager>().SetFreezeFeedback();
 
         if (!PhotonNetwork.IsMasterClient) return;
-        Debug.LogWarning("aaaaa");
         photonView.RPC(nameof(ResolveBossTurn), RpcTarget.All);
     }
 
