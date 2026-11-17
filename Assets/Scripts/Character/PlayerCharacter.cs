@@ -31,6 +31,7 @@ public class PlayerCharacter : Character
     public override void VirtualAttack()
     {
         characterAnimator.SetTrigger("Attack");
+        StartCoroutine(PlaySoundWithDelay(AudioManager.SFXs.Sword, 1.0f, 1.0f, 0.25f));
 
         base.VirtualAttack();
     }
@@ -59,6 +60,11 @@ public class PlayerCharacter : Character
         if (!this.isAlive) VirtualDie();
     }
 
+    protected override IEnumerator PlaySoundWithDelay(AudioManager.SFXs sfx, float volume, float pitch, float delay)
+    {
+        return base.PlaySoundWithDelay(sfx, volume, pitch, delay);
+    }
+
     // --------------------------------------- CORROTINAS --------------------------------------- //
 
     IEnumerator DamageAnimationFeedbackCoroutine(int damageAmount) // o certo era usar um trigger event no animator pra ativar a anim de dano so no final da anim de ataque mas fodase por enquanto XD
@@ -72,14 +78,16 @@ public class PlayerCharacter : Character
         {
             silhouetteAnimator.speed = 0.0f;
             characterAnimator.SetTrigger("Damaged");
+            AudioManager.Instance.PlaySound(AudioManager.SFXs.Hit, 0.85f, 1.0f);
         }
 
         else
         {
             StartCoroutine(DefenseFeedbackCoroutine(0.25f, 0.065f, characterAnimator.gameObject.transform));
             finalDamage = Mathf.RoundToInt(finalDamage * (1f - resistence / 100f));
+            AudioManager.Instance.PlaySound(AudioManager.SFXs.Shield, 0.75f, 1.0f);
         }
-
+     
         base.TakeDamage(finalDamage);
     }
 

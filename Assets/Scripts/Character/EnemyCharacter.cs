@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyCharacter : Character
 {
@@ -13,8 +14,15 @@ public class EnemyCharacter : Character
     {
         bossManager.activeBoss.bossSilhouetteAnimator.speed = 0.0f;
         bossManager.activeBoss.bossAnimator.SetTrigger("Damaged");
-        
+
+        StartCoroutine(PlaySoundWithDelay(AudioManager.SFXs.Hit, 0.55f, 0.65f, 0.25f));
+
         base.TakeDamage(damage);
+    }
+
+    protected override IEnumerator PlaySoundWithDelay(AudioManager.SFXs sfx, float volume, float pitch, float delay)
+    {
+        return base.PlaySoundWithDelay(sfx, volume, pitch, delay);
     }
 
     public override void Heal(int amount)

@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections.Generic;
 using System.Collections;
 
 public class GameManager : IPersistentSingleton<GameManager>
@@ -47,13 +46,16 @@ public class GameManager : IPersistentSingleton<GameManager>
 
         if (scene.name == "Game")
         {
-            //SetPlayersName();
+            SetPlayersName();
+            if (PhotonNetwork.IsMasterClient) AudioManager.Instance.muteVolumeMultiplier = 0; // REMOVER DEPOIS, PARA DEBUG
             AudioManager.Instance.SwitchSoundtrack(AudioManager.Soundtracks.Game, 1.0f, true);
         }
 
         if (scene.name == "GameOver")
         {
             GameOverScreen gameOverScreen = FindAnyObjectByType<GameOverScreen>();
+
+            AudioManager.Instance.StopSoundtrack();
 
             if (playersWon)
             {

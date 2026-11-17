@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -42,5 +43,11 @@ public class Character : MonoBehaviour
     public virtual void ResetAnimation()
     {
     
+    }
+
+    protected virtual IEnumerator PlaySoundWithDelay(AudioManager.SFXs sfx, float volume, float pitch, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AudioManager.Instance.PlaySound(sfx, volume, pitch);
     }
 }
