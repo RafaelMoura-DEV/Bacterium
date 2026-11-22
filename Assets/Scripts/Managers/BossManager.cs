@@ -145,6 +145,8 @@ public class BossManager : MonoBehaviour
                         attackEffect = Character.CharacterEffect.CantAttack;
                     }
 
+                    AudioManager.Instance.PlaySound(AudioManager.SFXs.AttackBoss1, 0.5f, 1.0f);
+
                     break;
 
                 case 1:
@@ -163,6 +165,8 @@ public class BossManager : MonoBehaviour
                         attackEffect = Character.CharacterEffect.None;
                         photonView.RPC(nameof(DrainEnergy), RpcTarget.All, -1);
                     }
+
+                    AudioManager.Instance.PlaySound(AudioManager.SFXs.AttackBoss2, 0.5f, 1.0f);
 
                     break;
 
@@ -190,6 +194,8 @@ public class BossManager : MonoBehaviour
                         photonView.RPC(nameof(DrainEnergy), targetPlayer, -2);
                     }
 
+                    AudioManager.Instance.PlaySound(AudioManager.SFXs.AttackBoss3, 0.5f, 1.0f);
+
                     break;
             }
         }
@@ -200,6 +206,7 @@ public class BossManager : MonoBehaviour
             attackMessage = ". ACERTO CRITICO!";
         }
 
+        photonView.RPC(nameof(PlayAttackSound), RpcTarget.All);
 
         return new AttackInfo(attackDamage, attackMessage, attackEffect);
     }
@@ -339,6 +346,25 @@ public class BossManager : MonoBehaviour
     void DrainEnergy(int amount)
     {
         FindAnyObjectByType<CardDeckController>().UpdateEnergy(amount);
+    }
+
+    [PunRPC]
+    void PlayAttackSound()
+    {
+        switch (currentBossIndex)
+        {
+            case 0:
+                AudioManager.Instance.PlaySound(AudioManager.SFXs.AttackBoss1, 0.8f, 1.0f);
+                break;
+
+            case 1:
+                AudioManager.Instance.PlaySound(AudioManager.SFXs.AttackBoss2, 1.0f, 1.0f);
+                break;
+
+            case 2:
+                AudioManager.Instance.PlaySound(AudioManager.SFXs.AttackBoss3, 1.0f, 1.0f);
+                break;
+        }
     }
 }
 

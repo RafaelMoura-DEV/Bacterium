@@ -21,7 +21,10 @@ public class AudioManager : IPersistentSingleton<AudioManager>
         CardCommon,
         CardRare,
         CardLegendary,
-        ConfirmFreezeClick
+        ConfirmFreezeClick,
+        AttackBoss1,
+        AttackBoss2,
+        AttackBoss3
     }
 
     public enum Soundtracks
