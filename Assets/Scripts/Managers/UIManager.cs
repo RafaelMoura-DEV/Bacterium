@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using Photon.Realtime;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class UIManager : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class UIManager : MonoBehaviour
     {
         DeactivatePanels();
         panels[0].SetActive(true);
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 1.0f);
     }
 
     public void Login()
@@ -75,17 +77,20 @@ public class UIManager : MonoBehaviour
     {
         DeactivatePanels();
         panels[1].SetActive(true);
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 1.0f);
     }
 
     public void OpenExtras()
     {
         DeactivatePanels();
         panels[2].SetActive(true);
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 1.0f);
     }
 
     public void QuitGame()
     {
         Debug.Log("Game Quitted...");
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 1.0f);
         Application.Quit();
     }
 
@@ -109,6 +114,7 @@ public class UIManager : MonoBehaviour
     public void OpenNewRoomPanel()
     {
         newRoomPanel.SetActive(true);
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 1.0f);
     }
 
     public void CreateNewRoom()
@@ -152,18 +158,21 @@ public class UIManager : MonoBehaviour
     {
         //photonConnection.EnterGameScene();
 
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 0.65f);
         GameManager.Instance.LoadSceneServer("Game");
     }
 
     public void LeaveRoom()
     {
-
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 0.65f);
+        PhotonConnection.Instance.LeaveRoom();
     }
 
     public void ReturnToMenu()
     {
         menuScreen.SetActive(true);
         roomScreen.SetActive(false);
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickUI, 1.0f, 1.0f);
     }
 
     public void DeactivatePanels()

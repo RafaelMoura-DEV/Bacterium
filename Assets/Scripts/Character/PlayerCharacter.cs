@@ -115,6 +115,8 @@ public class PlayerCharacter : Character
     {
         Color flashColor = new Color(0.99f, 1.0f, 0.45f, 1.0f);
 
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.Charge, 0.75f, 0.85f);
+
         for (int i = 0; i < 3; i++)
         {
             characterSpriteRender.color = flashColor;

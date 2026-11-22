@@ -1747,7 +1747,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 710416709}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1337581323}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: LeaveRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &710416709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6822,7 +6834,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
       propertyPath: sfxClips.Array.size
-      value: 5
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
       propertyPath: 'sfxClips.Array.data[1]'
@@ -6840,6 +6852,42 @@ PrefabInstance:
       propertyPath: 'sfxClips.Array.data[4]'
       value: 
       objectReference: {fileID: 8300000, guid: 56b96992116e6394f9c4fb9782841227, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[5]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 6e8e5649453461f459aa502dafc2dac7, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[6]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 1b7fb07f0fe808f4592e3a9f0dccce93, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[7]'
+      value: 
+      objectReference: {fileID: 8300000, guid: e1c0252bf7c4f054694ec8dd767e648e, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[8]'
+      value: 
+      objectReference: {fileID: 8300000, guid: f9b6b4c6dc70d7244b6f24c11c0fd373, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[9]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 32cf082fbe5d608489181d61e0d617f1, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[10]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 77085289fa613b948b157ae5dd1dd968, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[11]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 8803a9f50fcca7046b012ae7fee94233, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[12]'
+      value: 
+      objectReference: {fileID: 8300000, guid: a63ba2c1d910ec6499a61df8b84b7d51, type: 3}
+    - target: {fileID: 339628756424456409, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
+      propertyPath: 'sfxClips.Array.data[13]'
+      value: 
+      objectReference: {fileID: 8300000, guid: dcc8399795f0569449ce7419ef570065, type: 3}
     - target: {fileID: 1993538484402471259, guid: f0d955f39bb788c41b87be30163aa338, type: 3}
       propertyPath: m_Name
       value: AudioManager

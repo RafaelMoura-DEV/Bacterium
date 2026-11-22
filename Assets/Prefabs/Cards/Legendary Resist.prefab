@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   cardType: 1
+  cardRarity: 2
   energyCost: 2
   damageBuff: 0
   resistenceBuff: 50

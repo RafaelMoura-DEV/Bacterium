@@ -61,6 +61,7 @@ public class FreezePanel : MonoBehaviour
     public void ToggleFreezePanel()
     {
         freezePanel.SetActive(!freezePanel.activeSelf);
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickAction, 1.0f, 0.75f);
     }
 
     public void ToggleSecondaryPanel(bool charge) // trocar entre descricao e recarga
@@ -85,6 +86,8 @@ public class FreezePanel : MonoBehaviour
     {
         chargeAmount += amount;
 
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickAction, 1.0f, 0.75f);
+
         if (chargeAmount == 3) chargeAmount = 2; // se quiser colocar sfx de denied dps
         if (chargeAmount == -1) chargeAmount = 0;
 
@@ -94,6 +97,8 @@ public class FreezePanel : MonoBehaviour
     public void ConfirmCharge()
     {
         if (cardDeckController.energy == 0 || cardDeckController.energy < chargeAmount || turnCharge == 2 || (chargeAmount == 2 && turnCharge == 1)) return;
+
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ConfirmFreezeClick, 1.0f, 1.0f);
 
         cardDeckController.UpdateEnergy(-chargeAmount);     
 

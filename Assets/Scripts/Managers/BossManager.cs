@@ -282,6 +282,8 @@ public class BossManager : MonoBehaviour
 
         float elapsed = 0f;
 
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.Freeze, 0.65f, 1.0f);
+
         while (elapsed < 2.0f)
         {
             elapsed += Time.deltaTime;
@@ -294,6 +296,8 @@ public class BossManager : MonoBehaviour
         activeBoss.bossSpriteRenderer.color = targetColor;
 
         yield return new WaitForSeconds(2.25f);
+
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.BreakingFreeze, 0.65f, 1.0f);
 
         activeBoss.bossAnimator.speed = 1.0f;
         activeBoss.bossSilhouetteAnimator.speed = 1.0f;

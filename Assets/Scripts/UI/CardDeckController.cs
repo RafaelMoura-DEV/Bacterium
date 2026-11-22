@@ -65,7 +65,7 @@ public class CardDeckController : MonoBehaviour
     public void SetCardTarget()
     {
         if (selectedCard != null)
-        {
+        {         
             GameObject clickedObject = EventSystem.current.currentSelectedGameObject;
             PlayerCharacter playerCharacter = clickedObject.GetComponent<PlayerCharacter>();
 
@@ -76,6 +76,21 @@ public class CardDeckController : MonoBehaviour
             int targetViewID = targetView.ViewID;
 
             battleManager.ApplyCardEffect(targetViewID, selectedCard.cardType, selectedCard.damageBuff, selectedCard.resistenceBuff, selectedCard.heal);
+
+            switch (selectedCard.cardRarity)
+            {
+                case Card.CardRarity.Common:
+                    AudioManager.Instance.PlaySound(AudioManager.SFXs.CardCommon, 0.25f, 0.85f); 
+                    break;
+
+                case Card.CardRarity.Rare:
+                    AudioManager.Instance.PlaySound(AudioManager.SFXs.CardRare, 0.35f, 1.0f);
+                    break;
+
+                case Card.CardRarity.Legendary:
+                    AudioManager.Instance.PlaySound(AudioManager.SFXs.CardLegendary, 0.2f, 1.0f);
+                    break;
+            }
 
             ResetCardsFeedback();
             HideOverlay();

@@ -84,6 +84,8 @@ public class DisplayerController : MonoBehaviour
         actionButtons[buttonIndex].GetComponent<Button>().enabled = false;
         actionButtons[buttonIndex].GetComponent<Image>().color = Color.gray;
 
+        AudioManager.Instance.PlaySound(AudioManager.SFXs.ClickAction, 1.0f, 1.0f);
+
         if (buttonIndex == 2) chargeBool = true;
         else chargeBool = false;
     }

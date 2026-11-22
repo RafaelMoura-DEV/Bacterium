@@ -13,6 +13,15 @@ public class AudioManager : IPersistentSingleton<AudioManager>
         Hit,
         Sword,
         Shield,
+        Charge,
+        Freeze,
+        BreakingFreeze,
+        ClickUI,
+        ClickAction,
+        CardCommon,
+        CardRare,
+        CardLegendary,
+        ConfirmFreezeClick
     }
 
     public enum Soundtracks

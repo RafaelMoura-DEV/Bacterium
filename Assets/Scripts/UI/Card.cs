@@ -5,6 +5,9 @@ public class Card : MonoBehaviour
     public enum CardType { DamageBuff, ResistenceBuff, Heal, Energy }
     public CardType cardType;
 
+    public enum CardRarity { Common, Rare, Legendary }
+    public CardRarity cardRarity;
+
     public int energyCost;
     public int damageBuff;
     public int resistenceBuff;

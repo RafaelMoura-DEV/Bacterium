@@ -103,6 +103,9 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         GameManager.Instance.LoadSceneLocal("Menu");
+
+        UIManager uIManager = FindAnyObjectByType<UIManager>();
+        if (uIManager != null) uIManager.UpdateWaitingPanel(string.Empty);
     }
 
     //-------------------------------------------------------------------------
@@ -115,7 +118,7 @@ public class PhotonConnection : MonoBehaviourPunCallbacks
     //-------------------------------------------------------------------------
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if (GameManager.Instance.GetCurrentSceneName() == "Game")
+        if (GameManager.Instance.GetCurrentSceneName() == "Game" || GameManager.Instance.GetCurrentSceneName() == "Menu")
         {
             GameManager.Instance.LoadSceneLocal("Menu");
             LeaveRoom();
