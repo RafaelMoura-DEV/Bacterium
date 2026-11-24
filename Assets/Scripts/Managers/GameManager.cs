@@ -47,7 +47,6 @@ public class GameManager : IPersistentSingleton<GameManager>
         if (scene.name == "Game")
         {
             SetPlayersName();
-            if (!PhotonNetwork.IsMasterClient) AudioManager.Instance.muteVolumeMultiplier = 0; // REMOVER DEPOIS, PARA DEBUG
             AudioManager.Instance.SwitchSoundtrack(AudioManager.Soundtracks.Game, 1.0f, true);
         }
 

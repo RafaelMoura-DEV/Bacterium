@@ -4,8 +4,6 @@ using UnityEngine.Audio;
 
 public class AudioManager : IPersistentSingleton<AudioManager>
 {
-    [HideInInspector] public int muteVolumeMultiplier = 1;
-
     public enum SFXs
     {
         Defeat,
@@ -53,7 +51,7 @@ public class AudioManager : IPersistentSingleton<AudioManager>
         if (trackSource != null)
         {
             trackSource.clip = soundtrackClips[(int)enumAudioClip];
-            trackSource.volume = volume * muteVolumeMultiplier;
+            trackSource.volume = volume;
             if (play) trackSource.Play();
             else trackSource.Pause();
         }
@@ -103,7 +101,7 @@ public class AudioManager : IPersistentSingleton<AudioManager>
         if (audioSource == null) audioSource = CreateAudioSource();
 
         audioSource.clip = sfxClips[(int)enumAudioClip];
-        audioSource.volume = volume * muteVolumeMultiplier;
+        audioSource.volume = volume;
         audioSource.pitch = pitch;
         audioSource.loop = false;
         audioSource.playOnAwake = false;
